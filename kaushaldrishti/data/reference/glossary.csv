@@ -1,0 +1,30 @@
+key,en,hi,kn,ta,category
+app_title,KaushalDrishti,कौशल दृष्टि,ಕೌಶಲ ದೃಷ್ಟಿ,கௌசல் திருஷ்டி,ui
+ministry_name,Ministry of Skill Development & Entrepreneurship,कौशल विकास एवं उद्यमशीलता मंत्रालय,ಕೌಶಲ್ಯ ಅಭಿವೃದ್ಧಿ ಮತ್ತು ಉದ್ಯಮಶೀಲತೆ ಸಚಿವಾಲಯ,திறன் மேம்பாடு மற்றும் தொழில்முனைவோர் அமைச்சகம்,ui
+national_overview,National Overview,राष्ट्रीय अवलोकन,ರಾಷ್ಟ್ರೀಯ ಅವಲೋಕನ,தேசிய கண்ணோட்டம்,nav
+state_explorer,State & District Explorer,राज्य एवं जिला अन्वेषक,ರಾಜ್ಯ ಮತ್ತು ಜಿಲ್ಲಾ ಅನ್ವೇಷಕ,மாநில மற்றும் மாவட்ட ஆய்வாளர்,nav
+forecast_centre,Forecast Centre,पूर्वानुमान केंद्र,ಮುನ್ಸೂಚನಾ ಕೇಂದ್ರ,முன்கணிப்பு மையம்,nav
+early_warning,Early Warning Centre,पूर्व चेतावनी केंद्र,ಮುನ್ನೆಚ್ಚರಿಕೆ ಕೇಂದ್ರ,முன்னெச்சரிக்கை மையம்,nav
+scenario_lab,Policy Scenario Lab,नीति परिदृश्य प्रयोगशाला,ನೀತಿ ಸನ್ನಿವೇಶ ಪ್ರಯೋಗಾಲಯ,கொள்கை காட்சி ஆய்வகம்,nav
+methodology,Methodology & Validation,कार्यप्रणाली एवं सत्यापन,ವಿಧಾನ ಮತ್ತು ಮೌಲ್ಯೀಕರಣ,முறை மற்றும் சரிபார்ப்பு,nav
+flag_acute_shortage,Acute Shortage,गंभीर कमी,ತೀವ್ರ ಕೊರತೆ,கடுமையான பற்றாக்குறை,flag
+flag_emerging_shortage,Emerging Shortage,उभरती कमी,ಹೊರಹೊಮ್ಮುತ್ತಿರುವ ಕೊರತೆ,வளர்ந்து வரும் பற்றாக்குறை,flag
+flag_approaching_saturation,Approaching Saturation,संतृप्ति के निकट,ಸಂಪೃಕ್ತತೆಯ ಸಮೀಪಿಸುತ್ತಿದೆ,செறிவூட்டலை நெருங்குகிறது,flag
+flag_saturated,Saturated,संतृप्त,ಸಂಪೃಕ್ತವಾಗಿದೆ,செறிவூட்டப்பட்டது,flag
+flag_stable,Stable,स्थिर,ಸ್ಥಿರ,நிலையான,flag
+overlay_rapid_growth,Rapid Growth,तीव्र वृद्धि,ವೇಗದ ಬೆಳವಣಿಗೆ,வேகமான வளர்ச்சி,overlay
+overlay_volatile,Volatile,अस्थिर,ಚಂಚಲ,நிலையற்ற,overlay
+demand_index,Labour Demand Index (LDI),श्रम मांग सूचकांक (LDI),ಕಾರ್ಮಿಕ ಬೇಡಿಕೆ ಸೂಚ್ಯಂಕ (LDI),தொழிலாளர் தேவை குறியீடு (LDI),metric
+forecast_demand,Forecast Demand,अनुमानित मांग,ಮುನ್ಸೂಚಿತ ಬೇಡಿಕೆ,முன்கணிப்பு தேவை,metric
+projected_supply,Projected Supply,अनुमानित आपूर्ति,ಅಂದಾಜು ಪೂರೈಕೆ,திட்டமிடப்பட்ட விநியோகம்,metric
+net_gap,Projected Gap,अनुमानित अंतर,ಅಂದಾಜು ಅಂತರ,திட்டமிடப்பட்ட இடைவெளி,metric
+confidence_high,High Confidence,उच्च विश्वसनीयता,ಹೆಚ್ಚಿನ ವಿಶ್ವಾಸಾರ್ಹತೆ,அதிக நம்பிக்கை,badge
+confidence_medium,Medium Confidence,मध्यम विश्वसनीयता,ಮಧ್ಯಮ ವಿಶ್ವಾಸಾರ್ಹತೆ,நடுத்தர நம்பிக்கை,badge
+confidence_low,Low Confidence,निम्न विश्वसनीयता,ಕಡಿಮೆ ವಿಶ್ವಾಸಾರ್ಹತೆ,குறைந்த நம்பிக்கை,badge
+mode_live,Live,लाइव,ಲೈವ್,நேரலை,data_mode
+mode_public_aggregate,Public Aggregate,सार्वजनिक समुच्चय,ಸಾರ್ವಜನಿಕ ಒಟ್ಟುಗೂಡಿಸುವಿಕೆ,பொது ஒருங்கிணைப்பு,data_mode
+mode_partner,Partner Data,साझेदार डेटा,ಪಾಲುದಾರ ಡೇಟಾ,கூட்டாளி தரவு,data_mode
+mode_synthetic,Synthetic,सिंथेटिक (प्रदर्शनात्मक),ಕೃತಕ (ಮಾದರಿ),செயற்கை (மாதிரி),data_mode
+action_review_seats,Review next-cycle seat allocation and centre capacity,अगले चक्र के सीट आवंटन और केंद्र क्षमता की समीक्षा करें,ಮುಂದಿನ ಚಕ್ರದ ಸೀಟು ಹಂಚಿಕೆ ಮತ್ತು ಕೇಂದ್ರದ ಸಾಮರ್ಥ್ಯವನ್ನು ಪರಿಶೀಲಿಸಿ,அடுத்த சுழற்சி இட ஒதுக்கீடு மற்றும் மையத் திறனை மதிப்பாய்வு செய்யவும்,action
+action_expand_training,Priority expansion of training batches recommended,प्रशिक्षण बैचों के प्राथमिकता विस्तार की सिफारिश,ತರಬೇತಿ ಬ್ಯಾಚ್‌ಗಳ ಆದ್ಯತೆಯ ವಿಸ್ತರಣೆಯನ್ನು ಶಿಫಾರಸು ಮಾಡಲಾಗಿದೆ,பயிற்சி தொகுதிகளின் முன்னுரிமை விரிவாக்கம் பரிந்துரைக்கப்படுகிறது,action
+action_consolidate_capacity,Consolidate existing training capacity to prevent oversaturation,अति-संतृप्ति को रोकने के लिए मौजूदा क्षमता को सुदृढ़ करें,ಅತಿಯಾದ ಸಂಪೃಕ್ತತೆಯನ್ನು ತಡೆಗಟ್ಟಲು ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಸಾಮರ್ಥ್ಯವನ್ನು ಕ್ರೋಢೀಕರಿಸಿ,அதிக செறிவூட்டலைத் தடுக்க தற்போதைய திறனை ஒருங்கிணைக்கவும்,action

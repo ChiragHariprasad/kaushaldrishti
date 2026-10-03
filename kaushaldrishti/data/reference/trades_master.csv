@@ -1,0 +1,41 @@
+sector_code,sector_name,trade_name,nco_code,qp_code,nsqf_level,course_months,aliases_pipe,patterns_pipe
+AUTO,Automotive,EV Service Technician,7231.0101,ASC/Q1402,4,6,EV Mechanic|Electric Vehicle Technician|EV Battery Specialist|ईवी तकनीशियन|ಇವಿ ತಂತ್ರಜ್ಞ|மின்சார வாகன மெக்கானிக்,ev.*tech|electric.*vehicle|battery.*service
+AUTO,Automotive,Motor Vehicle Mechanic,7231.0100,ASC/Q1401,4,12,Auto Mechanic|Vehicle Mechanic|Automobile Service Technician|मोटर वाहन मैकेनिक|ಮೋಟಾರ್ ವಾಹನ ಮೆಕ್ಯಾನಿಕ್,mechanic.*auto|vehicle.*repair
+AUTO,Automotive,Auto Body Repair Technician,7213.0100,ASC/Q1410,3,6,Denter|Panel Beater|Body Shop Technician,denting.*painting|body.*repair
+AUTO,Automotive,Auto Electrician,7412.0100,ASC/Q1408,4,6,Vehicle Electrician|Automotive Wiring Specialist,auto.*electrician|vehicle.*wiring
+AUTO,Automotive,Two Wheeler Service Technician,7231.0200,ASC/Q1411,3,6,Bike Mechanic|Two Wheeler Mechanic,bike.*repair|two.*wheeler
+AUTO,Automotive,CNC Machining Technician,7223.0100,ASC/Q3501,4,6,CNC Operator|CNC Milling Specialist,cnc.*operator|cnc.*machin
+AUTO,Automotive,Vehicle Painter,7132.0100,ASC/Q1412,3,6,Automotive Painter|Spray Painter,spray.*paint|auto.*paint
+AUTO,Automotive,Quality Control Inspector (Auto),7543.0100,ASC/Q6301,4,6,Automotive QC|Vehicle Inspector,quality.*control.*auto|inspection.*auto
+HEALTH,Healthcare,General Duty Assistant,5321.0100,HSS/Q5101,3,4,GDA|Nursing Assistant|Patient Care Assistant|जीडीए|ಸಾಮಾನ್ಯ ಕರ್ತವ್ಯ ಸಹಾಯಕ|பொது கடமை உதவியாளர்,general.*duty|patient.*care|nursing.*assistant
+HEALTH,Healthcare,Nursing Associate,3221.0100,HSS/Q5102,5,12,Staff Nurse|Junior Nurse|Clinical Nurse,nursing|registered.*nurse
+HEALTH,Healthcare,Phlebotomist,3212.0100,HSS/Q0501,4,3,Blood Collection Technician|Lab Sample Collector,phlebotom|blood.*collection
+HEALTH,Healthcare,Home Health Aide,5322.0100,HSS/Q5103,3,4,Elder Care Assistant|Home Care Nurse,home.*care|elder.*care
+HEALTH,Healthcare,Medical Laboratory Technician,3212.0200,HSS/Q0301,4,12,MLT|Pathology Lab Technician,lab.*technician|pathology.*tech
+HEALTH,Healthcare,Emergency Medical Technician,3258.0100,HSS/Q2301,4,6,EMT|Ambulance Technician|Paramedic,paramedic|emergency.*medical
+HEALTH,Healthcare,Dialysis Technician,3211.0100,HSS/Q2701,4,6,Renal Dialysis Technician,dialysis
+HEALTH,Healthcare,Radiology Technician,3211.0200,HSS/Q0201,4,12,X-Ray Technician|Imaging Technologist,x.*ray|radiology|ct.*scan
+ELECT,Electronics and Hardware,Electronics Mechanic,7421.0100,ELE/Q3101,4,12,Electronics Technician|Hardware Repairer,electronics.*repair|circuit.*board
+ELECT,Electronics and Hardware,SMT Operator,8212.0100,ELE/Q0102,3,3,Surface Mount Operator|SMD Line Operator,smt.*operator|surface.*mount
+ELECT,Electronics and Hardware,CCTV Installation Technician,7421.0200,ELE/Q4605,4,3,Security System Installer|Surveillance Tech,cctv.*install|surveillance.*tech
+ELECT,Electronics and Hardware,Mobile Phone Repair Technician,7422.0100,ELE/Q8104,4,3,Smartphone Repairer|Mobile Hardware Tech,mobile.*repair|smartphone.*repair
+ELECT,Electronics and Hardware,Solar Panel Installation Technician,7411.0100,ELE/Q5901,4,4,Solar PV Installer|Rooftop Solar Tech,solar.*installer|solar.*panel
+ELECT,Electronics and Hardware,Field Technician - Computing,3511.0100,ELE/Q4601,4,6,Desktop Support Engineer|Hardware Support,desktop.*support|hardware.*tech
+ELECT,Electronics and Hardware,Wireman,7411.0200,ELE/Q6001,3,6,Domestic Wireman|Electrical Fitter,wireman|wiring.*tech
+ELECT,Electronics and Hardware,PCB Assembly Technician,8212.0200,ELE/Q0101,3,3,PCB Assembler|Component Placement Operator,pcb.*assembl|soldering.*tech
+CONST,Construction,Electrician (Construction),7137.0100,CON/Q0601,4,6,Building Electrician|Site Electrician|इलेक्ट्रीशियन|ವಿದ್ಯುತ್ ತಂತ್ರಜ್ಞ|மின் பணியாளர்,electrician|electrical.*fitter
+CONST,Construction,Plumber (General),7126.0100,CON/Q0602,3,6,Pipe Fitter|Sanitary Fitter|प्लंबर|ಪ್ಲಂಬರ್|குழாய் பொருத்துநர்,plumber|pipe.*fitter
+CONST,Construction,Welder (Arc & Gas),7212.0100,CON/Q0201,4,6,MIG Welder|TIG Welder|Fabricator,welder|welding.*tech
+CONST,Construction,Mason (General),7112.0100,CON/Q0101,3,6,Bricklayer|Construction Worker|राजमिस्त्री|ಮೇಸ್ತ್ರಿ|கொத்தனார்,mason|bricklayer
+CONST,Construction,Shuttering Carpenter,7115.0100,CON/Q0301,3,6,Formwork Carpenter|Centering Worker,carpenter|shuttering
+CONST,Construction,Bar Bender & Steel Fixer,7214.0100,CON/Q0203,3,3,Rebar Worker|Steel Fixer,bar.*bender|steel.*fixer
+CONST,Construction,Construction Site Supervisor,3123.0100,CON/Q0701,5,12,Site Incharge|Foreman,site.*supervisor|construction.*foreman
+CONST,Construction,Scaffolder,7119.0100,CON/Q0303,3,3,Staging Erector|Scaffolding Technician,scaffold
+LOGIS,Logistics and Supply Chain,Warehouse Associate,4321.0100,LSC/Q0101,3,3,Warehouse Picker|Stock Assistant|गोदाम सहायक|ಗೋದಾಮು ಸಹಾಯಕ|கிடங்கு உதவியாளர்,warehouse.*associate|picker.*packer
+LOGIS,Logistics and Supply Chain,Forklift Operator,8344.0100,LSC/Q0107,4,3,Reach Truck Driver|MHE Operator,forklift|mhe.*operator
+LOGIS,Logistics and Supply Chain,Last-Mile Delivery Executive,8321.0100,LSC/Q0301,3,2,Delivery Boy|Rider|Courier Executive,delivery.*boy|delivery.*rider|courier
+LOGIS,Logistics and Supply Chain,Freight Handler,9333.0100,LSC/Q0104,2,2,Loader Unloader|Cargo Handler,cargo.*handler|freight.*loader
+LOGIS,Logistics and Supply Chain,Inventory Clerk,4321.0200,LSC/Q0102,4,4,Stock Controller|Inventory Assistant,inventory.*clerk|stock.*keeper
+LOGIS,Logistics and Supply Chain,Supply Chain Assistant,4323.0100,LSC/Q2301,4,6,Logistics Coordinator|Dispatch Clerk,supply.*chain|dispatch.*clerk
+LOGIS,Logistics and Supply Chain,Cold Chain Technician,7127.0100,LSC/Q0401,4,6,Refrigerated Logistics Tech|Cold Storage Operator,cold.*chain|refrigerat.*logistics
+LOGIS,Logistics and Supply Chain,Courier Delivery Executive,8321.0200,LSC/Q0302,3,2,Parcel Delivery Agent|Post Courier Runner,parcel.*delivery|courier.*agent

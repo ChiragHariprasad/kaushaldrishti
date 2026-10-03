@@ -5,6 +5,7 @@ Application configuration via environment variables.
 import os
 from typing import List
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings
 
 
@@ -17,15 +18,34 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "info"
     DEBUG: bool = True
 
-    # Database
-    DATABASE_URL: str = os.getenv(
-        "DATABASE_URL",
-        "sqlite+aiosqlite:///./kaushaldrishti_dev.db"
-    )
-    DATABASE_URL_SYNC: str = os.getenv(
-        "DATABASE_URL_SYNC",
-        "sqlite:///./kaushaldrishti_dev.db"
-    )
+    # Database URLs
+    DATABASE_URL: str = "sqlite+aiosqlite:///./kaushaldrishti_dev.db"
+    DATABASE_URL_SYNC: str = "sqlite:///./kaushaldrishti_dev.db"
+
+    @field_validator("DATABASE_URL", mode="after")
+    @classmethod
+    def sanitize_db_url(cls, v: str) -> str:
+        # Override with KD_DATABASE_URL if explicitly given
+        kd_url = os.getenv("KD_DATABASE_URL")
+        if kd_url:
+            v = kd_url
+        if not v or "ihorms" in v:
+            return "sqlite+aiosqlite:///./kaushaldrishti_dev.db"
+        if v.startswith("postgresql://") and not v.startswith("postgresql+asyncpg://"):
+            return v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return v
+
+    @field_validator("DATABASE_URL_SYNC", mode="after")
+    @classmethod
+    def sanitize_sync_db_url(cls, v: str) -> str:
+        kd_sync = os.getenv("KD_DATABASE_URL_SYNC")
+        if kd_sync:
+            v = kd_sync
+        if not v or "ihorms" in v:
+            return "sqlite:///./kaushaldrishti_dev.db"
+        if "+asyncpg" in v:
+            return v.replace("+asyncpg", "")
+        return v
 
     # API Security
     API_KEY: str = "dev-key-2026"

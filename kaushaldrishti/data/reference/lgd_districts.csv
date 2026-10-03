@@ -1,0 +1,145 @@
+state_code,state_name,lgd_code,district_name,population_working_age,urban_rural_aspirational
+KA,Karnataka,2901,Bengaluru Urban,9500000,urban
+KA,Karnataka,2902,Bengaluru Rural,800000,rural
+KA,Karnataka,2903,Mysuru,2400000,urban
+KA,Karnataka,2904,Belagavi,3600000,rural
+KA,Karnataka,2905,Dharwad,1400000,urban
+KA,Karnataka,2906,Dakshina Kannada,1700000,urban
+KA,Karnataka,2907,Tumakuru,2100000,rural
+KA,Karnataka,2908,Shivamogga,1400000,rural
+KA,Karnataka,2909,Ballari,1900000,rural
+KA,Karnataka,2910,Kalaburagi,2000000,aspirational
+KA,Karnataka,2911,Vijayapura,1700000,rural
+KA,Karnataka,2912,Davanagere,1500000,rural
+KA,Karnataka,2913,Udupi,950000,urban
+KA,Karnataka,2914,Hassan,1400000,rural
+KA,Karnataka,2915,Mandya,1450000,rural
+KA,Karnataka,2916,Chikkamagaluru,900000,rural
+KA,Karnataka,2917,Bagalkote,1500000,rural
+KA,Karnataka,2918,Bidar,1350000,aspirational
+KA,Karnataka,2919,Chamarajanagar,820000,rural
+KA,Karnataka,2920,Chikkaballapura,1000000,rural
+KA,Karnataka,2921,Chitradurga,1300000,rural
+KA,Karnataka,2922,Gadag,850000,rural
+KA,Karnataka,2923,Haveri,1300000,rural
+KA,Karnataka,2924,Kodagu,450000,rural
+KA,Karnataka,2925,Kolar,1250000,rural
+KA,Karnataka,2926,Koppal,1150000,aspirational
+KA,Karnataka,2927,Raichur,1550000,aspirational
+KA,Karnataka,2928,Ramanagara,900000,rural
+KA,Karnataka,2929,Uttara Kannada,1150000,rural
+KA,Karnataka,2930,Yadgir,950000,aspirational
+KA,Karnataka,2931,Vijayanagara,1100000,rural
+TN,Tamil Nadu,3301,Chennai,6800000,urban
+TN,Tamil Nadu,3302,Coimbatore,2900000,urban
+TN,Tamil Nadu,3303,Madurai,2400000,urban
+TN,Tamil Nadu,3304,Tiruchirappalli,2100000,urban
+TN,Tamil Nadu,3305,Salem,2800000,urban
+TN,Tamil Nadu,3306,Tirunelveli,1400000,rural
+TN,Tamil Nadu,3307,Tiruppur,2000000,urban
+TN,Tamil Nadu,3308,Erode,1850000,rural
+TN,Tamil Nadu,3309,Vellore,1300000,urban
+TN,Tamil Nadu,3310,Thoothukudi,1400000,rural
+TN,Tamil Nadu,3311,Dindigul,1750000,rural
+TN,Tamil Nadu,3312,Thanjavur,1900000,rural
+TN,Tamil Nadu,3313,Ranipet,1000000,rural
+TN,Tamil Nadu,3314,Sivaganga,1100000,rural
+TN,Tamil Nadu,3315,Virudhunagar,1600000,aspirational
+TN,Tamil Nadu,3316,Kanchipuram,1150000,urban
+TN,Tamil Nadu,3317,Chengalpattu,2100000,urban
+TN,Tamil Nadu,3318,Cuddalore,2100000,rural
+TN,Tamil Nadu,3319,Dharmapuri,1250000,rural
+TN,Tamil Nadu,3320,Kallakurichi,1100000,rural
+TN,Tamil Nadu,3321,Kanyakumari,1550000,rural
+TN,Tamil Nadu,3322,Karur,850000,rural
+TN,Tamil Nadu,3323,Krishnagiri,1550000,rural
+TN,Tamil Nadu,3324,Mayiladuthurai,750000,rural
+TN,Tamil Nadu,3325,Nagapattinam,600000,rural
+TN,Tamil Nadu,3326,Namakkal,1400000,rural
+TN,Tamil Nadu,3327,Nilgiris,600000,rural
+TN,Tamil Nadu,3328,Perambalur,450000,rural
+TN,Tamil Nadu,3329,Pudukkottai,1300000,rural
+TN,Tamil Nadu,3330,Ramanathapuram,1100000,aspirational
+TN,Tamil Nadu,3331,Tenkasi,1150000,rural
+TN,Tamil Nadu,3332,Theni,1000000,rural
+TN,Tamil Nadu,3333,Tirupathur,950000,rural
+TN,Tamil Nadu,3334,Tiruvallur,3000000,urban
+TN,Tamil Nadu,3335,Tiruvannamalai,1950000,rural
+TN,Tamil Nadu,3336,Tiruvarur,1050000,rural
+TN,Tamil Nadu,3337,Viluppuram,1650000,rural
+TN,Tamil Nadu,3338,Ariyalur,650000,rural
+UP,Uttar Pradesh,0901,Lucknow,4100000,urban
+UP,Uttar Pradesh,0902,Kanpur Nagar,3900000,urban
+UP,Uttar Pradesh,0903,Varanasi,3100000,urban
+UP,Uttar Pradesh,0904,Prayagraj,4900000,urban
+UP,Uttar Pradesh,0905,Agra,3700000,urban
+UP,Uttar Pradesh,0906,Meerut,2900000,urban
+UP,Uttar Pradesh,0907,Ghaziabad,3900000,urban
+UP,Uttar Pradesh,0908,Gautam Buddha Nagar,1800000,urban
+UP,Uttar Pradesh,0909,Bareilly,3650000,urban
+UP,Uttar Pradesh,0910,Aligarh,3050000,rural
+UP,Uttar Pradesh,0911,Moradabad,2550000,urban
+UP,Uttar Pradesh,0912,Gorakhpur,3700000,urban
+UP,Uttar Pradesh,0913,Saharanpur,2850000,rural
+UP,Uttar Pradesh,0914,Firozabad,2050000,rural
+UP,Uttar Pradesh,0915,Jhansi,1650000,urban
+UP,Uttar Pradesh,0916,Muzaffarnagar,2400000,rural
+UP,Uttar Pradesh,0917,Mathura,2100000,rural
+UP,Uttar Pradesh,0918,Ayodhya,2050000,rural
+UP,Uttar Pradesh,0919,Rampur,1900000,rural
+UP,Uttar Pradesh,0920,Shahjahanpur,2500000,rural
+UP,Uttar Pradesh,0921,Farrukhabad,1600000,rural
+UP,Uttar Pradesh,0922,Budaun,2600000,rural
+UP,Uttar Pradesh,0923,Mau,1800000,rural
+UP,Uttar Pradesh,0924,Hapur,1150000,rural
+UP,Uttar Pradesh,0925,Etawah,1300000,rural
+UP,Uttar Pradesh,0926,Mirzapur,2100000,rural
+UP,Uttar Pradesh,0927,Sambhal,1800000,rural
+UP,Uttar Pradesh,0928,Amroha,1550000,rural
+UP,Uttar Pradesh,0929,Hardoi,3300000,rural
+UP,Uttar Pradesh,0930,Fatehpur,2150000,aspirational
+UP,Uttar Pradesh,0931,Raebareli,2800000,rural
+UP,Uttar Pradesh,0932,Jalaun,1400000,rural
+UP,Uttar Pradesh,0933,Sitapur,3650000,rural
+UP,Uttar Pradesh,0934,Bahraich,2850000,aspirational
+UP,Uttar Pradesh,0935,Unnao,2600000,rural
+UP,Uttar Pradesh,0936,Jaunpur,3700000,rural
+UP,Uttar Pradesh,0937,Lakhimpur Kheri,3350000,rural
+UP,Uttar Pradesh,0938,Hathras,1300000,rural
+UP,Uttar Pradesh,0939,Banda,1450000,rural
+UP,Uttar Pradesh,0940,Pilibhit,1700000,rural
+UP,Uttar Pradesh,0941,Barabanki,2700000,rural
+UP,Uttar Pradesh,0942,Gonda,2800000,rural
+UP,Uttar Pradesh,0943,Basti,2050000,rural
+UP,Uttar Pradesh,0944,Deoria,2550000,rural
+UP,Uttar Pradesh,0945,Ghazipur,3000000,rural
+UP,Uttar Pradesh,0946,Sultanpur,1950000,rural
+UP,Uttar Pradesh,0947,Azamgarh,3800000,rural
+UP,Uttar Pradesh,0948,Bijnor,3100000,rural
+UP,Uttar Pradesh,0949,Ballia,2700000,rural
+UP,Uttar Pradesh,0950,Bhadohi,1300000,rural
+UP,Uttar Pradesh,0951,Shamli,1100000,rural
+UP,Uttar Pradesh,0952,Kasganj,1200000,rural
+UP,Uttar Pradesh,0953,Amethi,1550000,rural
+UP,Uttar Pradesh,0954,Chandauli,1600000,aspirational
+UP,Uttar Pradesh,0955,Balrampur,1800000,aspirational
+UP,Uttar Pradesh,0956,Siddharthnagar,2150000,aspirational
+UP,Uttar Pradesh,0957,Sonbhadra,1550000,aspirational
+UP,Uttar Pradesh,0958,Kaushambi,1350000,rural
+UP,Uttar Pradesh,0959,Lalitpur,1000000,rural
+UP,Uttar Pradesh,0960,Chitrakoot,850000,aspirational
+UP,Uttar Pradesh,0961,Mahoba,750000,rural
+UP,Uttar Pradesh,0962,Hamirpur,900000,rural
+UP,Uttar Pradesh,0963,Auraiya,1150000,rural
+UP,Uttar Pradesh,0964,Kannauj,1400000,rural
+UP,Uttar Pradesh,0965,Kanpur Dehat,1500000,rural
+UP,Uttar Pradesh,0966,Shravasti,950000,aspirational
+UP,Uttar Pradesh,0967,Maharajganj,2250000,rural
+UP,Uttar Pradesh,0968,Kushinagar,2950000,rural
+UP,Uttar Pradesh,0969,Sant Kabir Nagar,1450000,rural
+UP,Uttar Pradesh,0970,Baghpat,1100000,rural
+UP,Uttar Pradesh,0971,Pratapgarh,2650000,rural
+UP,Uttar Pradesh,0972,Mainpuri,1550000,rural
+UP,Uttar Pradesh,0973,Etah,1450000,rural
+UP,Uttar Pradesh,0974,Balia,1850000,rural
+UP,Uttar Pradesh,0975,Kushinagar Rural,950000,rural
