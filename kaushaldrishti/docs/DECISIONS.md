@@ -24,3 +24,13 @@ This document records every non-obvious default chosen during implementation.
 | D-011 | Exact match + Levenshtein distance for geography | Avoids token substring false positives (e.g. 'Prayagraj' vs 'Agra') while handling transliterations and colloquial aliases. |
 | D-012 | Pydantic data contract string coercion | Handles pandas reading numerical codes (e.g. NCO 7231.0101) as floats without failing validation. |
 | D-013 | Non-blocking adapter loading | Missing raw incoming files trigger clear warning and fall back to synthetic parquet (`data_mode: synthetic`), preventing pipeline crashes. |
+
+## M2 — Demand Intelligence
+
+| # | Decision | Rationale |
+|---|----------|-----------|
+| D-014 | Information-form Kalman filter formulation | Closed-form Bayesian update that naturally accommodates missing sources without imputation and computes exact source attribution weights. |
+| D-015 | Empirical Bayes partial pooling across districts | Shrinks small-district estimates toward state mean ($\tau_s^2 = \max(0.001, \text{Var}_d(m) - \text{mean}(P))$), reporting data share $\omega = 1 - \lambda$. |
+| D-016 | Frozen 24-month baseline CDF in `config/baseline.json` | Freezes baseline intensity distribution over the first 24 months so LDI (0–100) measures absolute progress rather than floating relative ranks. |
+| D-017 | Separate index scale vs gap scale | Absolute log-openings scale ($m$) is used for supply/demand gap calculations; population-adjusted intensity ($\iota$) is used for cross-district LDI comparison. |
+| D-018 | Dynamic reliability factor $r_k = \text{clip}(\bar{v}_k / \text{MSE}_k, 0.1, 1.0)$ | Penalizes sources that exhibit high leave-one-out consensus disagreement or sudden noise spikes by inflating their observation variance $v$. |
