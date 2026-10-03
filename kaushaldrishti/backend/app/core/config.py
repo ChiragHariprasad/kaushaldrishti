@@ -3,10 +3,14 @@ Application configuration via environment variables.
 """
 
 import os
+from pathlib import Path
 from typing import List
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings
+
+_BACKEND_DIR = Path(__file__).resolve().parent.parent.parent
+_DEFAULT_DB_FILE = (_BACKEND_DIR / "kaushaldrishti_dev.db").as_posix()
 
 
 class Settings(BaseSettings):
@@ -19,8 +23,8 @@ class Settings(BaseSettings):
     DEBUG: bool = True
 
     # Database URLs
-    DATABASE_URL: str = "sqlite+aiosqlite:///./kaushaldrishti_dev.db"
-    DATABASE_URL_SYNC: str = "sqlite:///./kaushaldrishti_dev.db"
+    DATABASE_URL: str = f"sqlite+aiosqlite:///{_DEFAULT_DB_FILE}"
+    DATABASE_URL_SYNC: str = f"sqlite:///{_DEFAULT_DB_FILE}"
 
     @field_validator("DATABASE_URL", mode="after")
     @classmethod
@@ -30,7 +34,7 @@ class Settings(BaseSettings):
         if kd_url:
             v = kd_url
         if not v or "ihorms" in v:
-            return "sqlite+aiosqlite:///./kaushaldrishti_dev.db"
+            return f"sqlite+aiosqlite:///{_DEFAULT_DB_FILE}"
         if v.startswith("postgresql://") and not v.startswith("postgresql+asyncpg://"):
             return v.replace("postgresql://", "postgresql+asyncpg://", 1)
         return v
@@ -42,7 +46,7 @@ class Settings(BaseSettings):
         if kd_sync:
             v = kd_sync
         if not v or "ihorms" in v:
-            return "sqlite:///./kaushaldrishti_dev.db"
+            return f"sqlite:///{_DEFAULT_DB_FILE}"
         if "+asyncpg" in v:
             return v.replace("+asyncpg", "")
         return v

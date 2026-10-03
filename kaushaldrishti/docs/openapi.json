@@ -1,0 +1,3030 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "KaushalDrishti API",
+    "description": "AI-enabled Labour Market Intelligence System (LMIS) for MSDE. Provides district-level labour demand indices, supply forecasts, gap analysis, early warnings, and policy scenario simulation.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health Check",
+        "description": "Health check endpoint.\nReturns service status, version, and uptime.",
+        "operationId": "health_check_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/metadata": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Get Metadata",
+        "description": "System metadata: sources, freshness, pilot scope, data_mode counts.\nPopulated as data layers come online.",
+        "operationId": "get_metadata_api_v1_metadata_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetadataResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/demand-index": {
+      "get": {
+        "tags": [
+          "demand"
+        ],
+        "summary": "Get Demand Index",
+        "description": "Returns Labour Demand Index (LDI) records with credible intervals,\nconfidence badges, driver descriptors, and data_mode indicators.",
+        "operationId": "get_demand_index_api_v1_demand_index_get",
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "State code (e.g. KA, TN, UP) or name",
+              "title": "State"
+            },
+            "description": "State code (e.g. KA, TN, UP) or name"
+          },
+          {
+            "name": "district",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "District name or LGD code",
+              "title": "District"
+            },
+            "description": "District name or LGD code"
+          },
+          {
+            "name": "sector",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Sector name or code",
+              "title": "Sector"
+            },
+            "description": "Sector name or code"
+          },
+          {
+            "name": "trade",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Trade name",
+              "title": "Trade"
+            },
+            "description": "Trade name"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Month YYYY-MM",
+              "title": "Month"
+            },
+            "description": "Month YYYY-MM"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DemandIndexItem"
+                  },
+                  "title": "Response Get Demand Index Api V1 Demand Index Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/explain": {
+      "get": {
+        "tags": [
+          "demand"
+        ],
+        "summary": "Explain Cell",
+        "description": "Exact source attribution for the Why Panel.\nExplains LDI drivers, exact Kalman source contributions, and data lineage.",
+        "operationId": "explain_cell_api_v1_explain_get",
+        "parameters": [
+          {
+            "name": "district_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "District ID",
+              "title": "District Id"
+            },
+            "description": "District ID"
+          },
+          {
+            "name": "trade_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Trade ID",
+              "title": "Trade Id"
+            },
+            "description": "Trade ID"
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Month YYYY-MM",
+              "title": "Month"
+            },
+            "description": "Month YYYY-MM"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExplainDemandResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/forecasts": {
+      "get": {
+        "tags": [
+          "forecast"
+        ],
+        "summary": "Get Forecasts",
+        "description": "Retrieve probabilistic demand forecasts across horizons.\nIncludes point estimates, 80% credible bounds (q10, q90), fallback level, and data_mode badge.",
+        "operationId": "get_forecasts_api_v1_forecasts_get",
+        "parameters": [
+          {
+            "name": "district_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "District ID filter",
+              "title": "District Id"
+            },
+            "description": "District ID filter"
+          },
+          {
+            "name": "state_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "State code filter (KA, TN, UP)",
+              "title": "State Code"
+            },
+            "description": "State code filter (KA, TN, UP)"
+          },
+          {
+            "name": "trade_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Trade ID filter",
+              "title": "Trade Id"
+            },
+            "description": "Trade ID filter"
+          },
+          {
+            "name": "horizon",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Horizon: 3, 6, 12, or cohort",
+              "title": "Horizon"
+            },
+            "description": "Horizon: 3, 6, 12, or cohort"
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Model name (ensemble, lightgbm, state_space)",
+              "default": "ensemble",
+              "title": "Model"
+            },
+            "description": "Model name (ensemble, lightgbm, state_space)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "default": 100,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForecastResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/validation": {
+      "get": {
+        "tags": [
+          "forecast"
+        ],
+        "summary": "Get Validation Scorecard",
+        "description": "Returns rolling-origin backtest validation metrics, comparing all models across\nhorizons (3m, 6m, 12m), pinball loss, empirical coverage (80% and 95%), and calibration.",
+        "operationId": "get_validation_scorecard_api_v1_validation_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/supply": {
+      "get": {
+        "tags": [
+          "supply"
+        ],
+        "summary": "Get Supply Forecasts",
+        "description": "Returns supply forecast draws and intervals for cohorts graduating in window [t, t+W).\nStrictly reports basis as capacity_based, certified, or certified_plus_other.",
+        "operationId": "get_supply_forecasts_api_v1_supply_get",
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "State code (KA, TN, UP) or name",
+              "title": "State"
+            },
+            "description": "State code (KA, TN, UP) or name"
+          },
+          {
+            "name": "district",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "District name or LGD code",
+              "title": "District"
+            },
+            "description": "District name or LGD code"
+          },
+          {
+            "name": "sector",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Sector name",
+              "title": "Sector"
+            },
+            "description": "Sector name"
+          },
+          {
+            "name": "trade",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Trade name",
+              "title": "Trade"
+            },
+            "description": "Trade name"
+          },
+          {
+            "name": "window_months",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Window months (3 or 12)",
+              "title": "Window Months"
+            },
+            "description": "Window months (3 or 12)"
+          },
+          {
+            "name": "origin_month",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Origin month YYYY-MM",
+              "title": "Origin Month"
+            },
+            "description": "Origin month YYYY-MM"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SupplyForecastItem"
+                  },
+                  "title": "Response Get Supply Forecasts Api V1 Supply Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaps": {
+      "get": {
+        "tags": [
+          "gap"
+        ],
+        "summary": "Get Gaps",
+        "description": "Query probabilistic demand-supply gaps.\nIncludes expected gap, gap rate, shortage probability, tolerance, and severity.",
+        "operationId": "get_gaps_api_v1_gaps_get",
+        "parameters": [
+          {
+            "name": "district_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "District ID filter",
+              "title": "District Id"
+            },
+            "description": "District ID filter"
+          },
+          {
+            "name": "state_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "State code filter (KA, TN, UP)",
+              "title": "State Code"
+            },
+            "description": "State code filter (KA, TN, UP)"
+          },
+          {
+            "name": "trade_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Trade ID filter",
+              "title": "Trade Id"
+            },
+            "description": "Trade ID filter"
+          },
+          {
+            "name": "window_months",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Window months (12 or 3)",
+              "default": 12,
+              "title": "Window Months"
+            },
+            "description": "Window months (12 or 3)"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Status filter (Shortage, Balanced, Surplus)",
+              "title": "Status"
+            },
+            "description": "Status filter (Shortage, Balanced, Surplus)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "default": 100,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GapResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alerts": {
+      "get": {
+        "tags": [
+          "gap"
+        ],
+        "summary": "Get Alerts",
+        "description": "Retrieve early warning alerts with hysteresis state and persistence history.",
+        "operationId": "get_alerts_api_v1_alerts_get",
+        "parameters": [
+          {
+            "name": "district_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "District ID filter",
+              "title": "District Id"
+            },
+            "description": "District ID filter"
+          },
+          {
+            "name": "state_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "State code filter (KA, TN, UP)",
+              "title": "State Code"
+            },
+            "description": "State code filter (KA, TN, UP)"
+          },
+          {
+            "name": "trade_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Trade ID filter",
+              "title": "Trade Id"
+            },
+            "description": "Trade ID filter"
+          },
+          {
+            "name": "flag",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Flag filter (Acute Shortage, Emerging Shortage, Approaching Saturation, Saturated)",
+              "title": "Flag"
+            },
+            "description": "Flag filter (Acute Shortage, Emerging Shortage, Approaching Saturation, Saturated)"
+          },
+          {
+            "name": "confidence",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Confidence filter",
+              "title": "Confidence"
+            },
+            "description": "Confidence filter"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000,
+              "minimum": 1,
+              "default": 100,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rankings": {
+      "get": {
+        "tags": [
+          "gap"
+        ],
+        "summary": "Get Rankings",
+        "description": "Produces two prioritized lists:\n  1. Top Emerging / Acute Shortages (ranked by severity & expected gap)\n  2. Top Saturation Risks (ranked by severity & expected oversupply)",
+        "operationId": "get_rankings_api_v1_rankings_get",
+        "parameters": [
+          {
+            "name": "state_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "State filter (KA, TN, UP)",
+              "title": "State Code"
+            },
+            "description": "State filter (KA, TN, UP)"
+          },
+          {
+            "name": "sector_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Sector code filter",
+              "title": "Sector Code"
+            },
+            "description": "Sector code filter"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RankingsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/explain-gap": {
+      "get": {
+        "tags": [
+          "gap"
+        ],
+        "summary": "Explain Gap",
+        "description": "Deterministic explainability endpoint producing full policy narratives\nin 4 languages (English, Hindi, Kannada, Tamil) using pre-translated glossaries.",
+        "operationId": "explain_gap_api_v1_explain_gap_get",
+        "parameters": [
+          {
+            "name": "district_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "District ID",
+              "title": "District Id"
+            },
+            "description": "District ID"
+          },
+          {
+            "name": "trade_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Trade ID",
+              "title": "Trade Id"
+            },
+            "description": "Trade ID"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Language: en, hi, kn, ta",
+              "default": "en",
+              "title": "Lang"
+            },
+            "description": "Language: en, hi, kn, ta"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios": {
+      "post": {
+        "tags": [
+          "scenario"
+        ],
+        "summary": "Create Scenario",
+        "description": "Simulate a policy intervention (e.g. +15% seat allocation, new centre, completion bump).\nReturns monthly baseline vs intervention time-series and identifies the gap closure cycle.",
+        "operationId": "create_scenario_api_v1_scenarios_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScenarioRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}": {
+      "get": {
+        "tags": [
+          "scenario"
+        ],
+        "summary": "Get Scenario",
+        "description": "Retrieve a previously simulated policy scenario by ID.",
+        "operationId": "get_scenario_api_v1_scenarios__scenario_id__get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Scenario run UUID",
+              "title": "Scenario Id"
+            },
+            "description": "Scenario run UUID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/export": {
+      "get": {
+        "tags": [
+          "export"
+        ],
+        "summary": "Export Data",
+        "description": "Download complete intelligence dataset across formats.\nComplies with Section 10 requirements and includes explicit data_mode badges.",
+        "operationId": "export_data_api_v1_export_get",
+        "parameters": [
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Format: csv, xlsx, json, geojson, parquet",
+              "default": "csv",
+              "title": "Format"
+            },
+            "description": "Format: csv, xlsx, json, geojson, parquet"
+          },
+          {
+            "name": "state_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "State code filter",
+              "title": "State Code"
+            },
+            "description": "State code filter"
+          },
+          {
+            "name": "sector_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Sector code filter",
+              "title": "Sector Code"
+            },
+            "description": "Sector code filter"
+          },
+          {
+            "name": "window_months",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Forecast window (12 or 3 months)",
+              "default": 12,
+              "title": "Window Months"
+            },
+            "description": "Forecast window (12 or 3 months)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/lineage/{cell_id}": {
+      "get": {
+        "tags": [
+          "lineage"
+        ],
+        "summary": "Get Lineage",
+        "description": "Retrieve full data lineage and provenance tree for a district-trade cell.\nTraces raw source feeds, weights, gate pass status, reliability r_k, and fallback level.",
+        "operationId": "get_lineage_api_v1_lineage__cell_id__get",
+        "parameters": [
+          {
+            "name": "cell_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Cell ID in format '{district_id}_{trade_id}' or integer ID",
+              "title": "Cell Id"
+            },
+            "description": "Cell ID in format '{district_id}_{trade_id}' or integer ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LineageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/webhooks": {
+      "get": {
+        "tags": [
+          "webhooks"
+        ],
+        "summary": "List Webhooks",
+        "description": "List all registered webhook listeners.",
+        "operationId": "list_webhooks_api_v1_webhooks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WebhookResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Webhooks Api V1 Webhooks Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "summary": "Subscribe Webhook",
+        "description": "Register a webhook listener for early warning flag changes.",
+        "operationId": "subscribe_webhook_api_v1_webhooks_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookSubscribeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebhookResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/webhooks/test": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "summary": "Deliver Test Event",
+        "description": "Simulate and deliver an alert state change event to test the webhook pipeline.",
+        "operationId": "deliver_test_event_api_v1_webhooks_test_post",
+        "parameters": [
+          {
+            "name": "webhook_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Specific webhook ID to test",
+              "title": "Webhook Id"
+            },
+            "description": "Specific webhook ID to test"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebhookTestDeliveryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quality": {
+      "get": {
+        "tags": [
+          "quality"
+        ],
+        "summary": "Get Quality Scorecards",
+        "description": "Returns data quality scorecards for all registered data sources.\nEvaluates freshness, deduplication rates, and gate reliability.",
+        "operationId": "get_quality_scorecards_api_v1_quality_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QualityReportResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review-queue": {
+      "get": {
+        "tags": [
+          "taxonomy"
+        ],
+        "summary": "List Review Queue",
+        "description": "Returns items in mapping review queue filtered by status.",
+        "operationId": "list_review_queue_api_v1_review_queue_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": "pending",
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReviewItem"
+                  },
+                  "title": "Response List Review Queue Api V1 Review Queue Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review-queue/{item_id}/decide": {
+      "post": {
+        "tags": [
+          "taxonomy"
+        ],
+        "summary": "Decide Review Item",
+        "description": "Submits a reviewer decision (approve, reject, or remap).\nUpdates review item and logs to audit log.",
+        "operationId": "decide_review_item_api_v1_review_queue__item_id__decide_post",
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Item Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewDecisionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Decide Review Item Api V1 Review Queue  Item Id  Decide Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AlertItem": {
+        "properties": {
+          "origin_month": {
+            "type": "string",
+            "title": "Origin Month"
+          },
+          "district_id": {
+            "type": "integer",
+            "title": "District Id"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code"
+          },
+          "trade_id": {
+            "type": "integer",
+            "title": "Trade Id"
+          },
+          "trade_name": {
+            "type": "string",
+            "title": "Trade Name"
+          },
+          "flag": {
+            "type": "string",
+            "title": "Flag"
+          },
+          "overlays": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Overlays"
+          },
+          "since_month": {
+            "type": "string",
+            "title": "Since Month"
+          },
+          "persistence_count": {
+            "type": "integer",
+            "title": "Persistence Count"
+          },
+          "p_value": {
+            "type": "number",
+            "title": "P Value"
+          },
+          "expected_gap": {
+            "type": "number",
+            "title": "Expected Gap"
+          },
+          "demand_trend": {
+            "type": "number",
+            "title": "Demand Trend"
+          },
+          "capacity_trend": {
+            "type": "number",
+            "title": "Capacity Trend"
+          },
+          "confidence": {
+            "type": "string",
+            "title": "Confidence"
+          },
+          "drivers": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Drivers"
+          },
+          "suggested_action": {
+            "type": "string",
+            "title": "Suggested Action"
+          },
+          "data_mode": {
+            "type": "string",
+            "title": "Data Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "origin_month",
+          "district_id",
+          "district_name",
+          "state_code",
+          "trade_id",
+          "trade_name",
+          "flag",
+          "since_month",
+          "persistence_count",
+          "p_value",
+          "expected_gap",
+          "demand_trend",
+          "capacity_trend",
+          "confidence",
+          "suggested_action",
+          "data_mode"
+        ],
+        "title": "AlertItem"
+      },
+      "AlertResponse": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/AlertItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "items"
+        ],
+        "title": "AlertResponse"
+      },
+      "DemandIndexItem": {
+        "properties": {
+          "month": {
+            "type": "string",
+            "title": "Month"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code"
+          },
+          "state_name": {
+            "type": "string",
+            "title": "State Name"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name"
+          },
+          "lgd_code": {
+            "type": "string",
+            "title": "Lgd Code"
+          },
+          "sector_name": {
+            "type": "string",
+            "title": "Sector Name"
+          },
+          "trade_name": {
+            "type": "string",
+            "title": "Trade Name"
+          },
+          "trade_id": {
+            "type": "integer",
+            "title": "Trade Id"
+          },
+          "nco_code": {
+            "type": "string",
+            "title": "Nco Code"
+          },
+          "expected_openings": {
+            "type": "number",
+            "title": "Expected Openings"
+          },
+          "intensity_iota": {
+            "type": "number",
+            "title": "Intensity Iota"
+          },
+          "ldi": {
+            "type": "number",
+            "title": "Ldi"
+          },
+          "ldi_lo": {
+            "type": "number",
+            "title": "Ldi Lo"
+          },
+          "ldi_hi": {
+            "type": "number",
+            "title": "Ldi Hi"
+          },
+          "confidence": {
+            "type": "string",
+            "title": "Confidence"
+          },
+          "fallback_level": {
+            "type": "integer",
+            "title": "Fallback Level"
+          },
+          "data_share": {
+            "type": "number",
+            "title": "Data Share"
+          },
+          "descriptors": {
+            "$ref": "#/components/schemas/DescriptorsSchema"
+          },
+          "data_mode": {
+            "type": "string",
+            "title": "Data Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "month",
+          "state_code",
+          "state_name",
+          "district_name",
+          "lgd_code",
+          "sector_name",
+          "trade_name",
+          "trade_id",
+          "nco_code",
+          "expected_openings",
+          "intensity_iota",
+          "ldi",
+          "ldi_lo",
+          "ldi_hi",
+          "confidence",
+          "fallback_level",
+          "data_share",
+          "descriptors",
+          "data_mode"
+        ],
+        "title": "DemandIndexItem"
+      },
+      "DescriptorsSchema": {
+        "properties": {
+          "V": {
+            "type": "number",
+            "title": "V"
+          },
+          "G": {
+            "type": "number",
+            "title": "G"
+          },
+          "R": {
+            "type": "number",
+            "title": "R"
+          },
+          "P_persist": {
+            "type": "integer",
+            "title": "P Persist"
+          },
+          "B": {
+            "type": "number",
+            "title": "B"
+          },
+          "I": {
+            "type": "number",
+            "title": "I"
+          }
+        },
+        "type": "object",
+        "required": [
+          "V",
+          "G",
+          "R",
+          "P_persist",
+          "B",
+          "I"
+        ],
+        "title": "DescriptorsSchema"
+      },
+      "EvidenceLineageItem": {
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "source_name": {
+            "type": "string",
+            "title": "Source Name"
+          },
+          "source_type": {
+            "type": "string",
+            "title": "Source Type"
+          },
+          "weight": {
+            "type": "number",
+            "title": "Weight"
+          },
+          "contribution": {
+            "type": "number",
+            "title": "Contribution"
+          },
+          "gate_pass": {
+            "type": "boolean",
+            "title": "Gate Pass"
+          },
+          "freshness_days": {
+            "type": "number",
+            "title": "Freshness Days"
+          },
+          "reliability_r_k": {
+            "type": "number",
+            "title": "Reliability R K"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_id",
+          "source_name",
+          "source_type",
+          "weight",
+          "contribution",
+          "gate_pass",
+          "freshness_days",
+          "reliability_r_k"
+        ],
+        "title": "EvidenceLineageItem"
+      },
+      "ExplainDemandResponse": {
+        "properties": {
+          "cell": {
+            "type": "object",
+            "title": "Cell"
+          },
+          "ldi": {
+            "type": "number",
+            "title": "Ldi"
+          },
+          "ldi_lo": {
+            "type": "number",
+            "title": "Ldi Lo"
+          },
+          "ldi_hi": {
+            "type": "number",
+            "title": "Ldi Hi"
+          },
+          "confidence": {
+            "type": "string",
+            "title": "Confidence"
+          },
+          "data_mode": {
+            "type": "string",
+            "title": "Data Mode"
+          },
+          "prior_weight": {
+            "type": "number",
+            "title": "Prior Weight"
+          },
+          "source_contributions": {
+            "items": {
+              "$ref": "#/components/schemas/SourceAttributionItem"
+            },
+            "type": "array",
+            "title": "Source Contributions"
+          },
+          "descriptors": {
+            "$ref": "#/components/schemas/DescriptorsSchema"
+          },
+          "narrative": {
+            "type": "string",
+            "title": "Narrative"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cell",
+          "ldi",
+          "ldi_lo",
+          "ldi_hi",
+          "confidence",
+          "data_mode",
+          "prior_weight",
+          "source_contributions",
+          "descriptors",
+          "narrative"
+        ],
+        "title": "ExplainDemandResponse"
+      },
+      "ForecastItem": {
+        "properties": {
+          "origin_month": {
+            "type": "string",
+            "title": "Origin Month"
+          },
+          "horizon": {
+            "type": "string",
+            "title": "Horizon"
+          },
+          "district_id": {
+            "type": "integer",
+            "title": "District Id"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code"
+          },
+          "trade_id": {
+            "type": "integer",
+            "title": "Trade Id"
+          },
+          "trade_name": {
+            "type": "string",
+            "title": "Trade Name"
+          },
+          "mean": {
+            "type": "number",
+            "title": "Mean"
+          },
+          "q10": {
+            "type": "number",
+            "title": "Q10"
+          },
+          "q90": {
+            "type": "number",
+            "title": "Q90"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "fallback_level": {
+            "type": "integer",
+            "title": "Fallback Level"
+          },
+          "data_mode": {
+            "type": "string",
+            "title": "Data Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "origin_month",
+          "horizon",
+          "district_id",
+          "district_name",
+          "state_code",
+          "trade_id",
+          "trade_name",
+          "mean",
+          "q10",
+          "q90",
+          "model",
+          "fallback_level",
+          "data_mode"
+        ],
+        "title": "ForecastItem"
+      },
+      "ForecastResponse": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "origin_month": {
+            "type": "string",
+            "title": "Origin Month"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ForecastItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "origin_month",
+          "items"
+        ],
+        "title": "ForecastResponse"
+      },
+      "GapItem": {
+        "properties": {
+          "origin_month": {
+            "type": "string",
+            "title": "Origin Month"
+          },
+          "district_id": {
+            "type": "integer",
+            "title": "District Id"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code"
+          },
+          "trade_id": {
+            "type": "integer",
+            "title": "Trade Id"
+          },
+          "trade_name": {
+            "type": "string",
+            "title": "Trade Name"
+          },
+          "window_months": {
+            "type": "integer",
+            "title": "Window Months"
+          },
+          "d_mean": {
+            "type": "number",
+            "title": "D Mean"
+          },
+          "s_mean": {
+            "type": "number",
+            "title": "S Mean"
+          },
+          "g_mean": {
+            "type": "number",
+            "title": "G Mean"
+          },
+          "gap_rate": {
+            "type": "number",
+            "title": "Gap Rate"
+          },
+          "p_shortage": {
+            "type": "number",
+            "title": "P Shortage"
+          },
+          "p_oversupply": {
+            "type": "number",
+            "title": "P Oversupply"
+          },
+          "tolerance": {
+            "type": "number",
+            "title": "Tolerance"
+          },
+          "severity": {
+            "type": "number",
+            "title": "Severity"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "confidence": {
+            "type": "string",
+            "title": "Confidence"
+          },
+          "data_mode": {
+            "type": "string",
+            "title": "Data Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "origin_month",
+          "district_id",
+          "district_name",
+          "state_code",
+          "trade_id",
+          "trade_name",
+          "window_months",
+          "d_mean",
+          "s_mean",
+          "g_mean",
+          "gap_rate",
+          "p_shortage",
+          "p_oversupply",
+          "tolerance",
+          "severity",
+          "status",
+          "confidence",
+          "data_mode"
+        ],
+        "title": "GapItem"
+      },
+      "GapResponse": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/GapItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "items"
+        ],
+        "title": "GapResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment"
+          },
+          "uptime_seconds": {
+            "type": "number",
+            "title": "Uptime Seconds"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "version",
+          "environment",
+          "uptime_seconds",
+          "timestamp"
+        ],
+        "title": "HealthResponse",
+        "description": "Health check response."
+      },
+      "LineageResponse": {
+        "properties": {
+          "cell_id": {
+            "type": "string",
+            "title": "Cell Id"
+          },
+          "origin_month": {
+            "type": "string",
+            "title": "Origin Month"
+          },
+          "district_id": {
+            "type": "integer",
+            "title": "District Id"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code"
+          },
+          "trade_id": {
+            "type": "integer",
+            "title": "Trade Id"
+          },
+          "trade_name": {
+            "type": "string",
+            "title": "Trade Name"
+          },
+          "fallback_level": {
+            "type": "integer",
+            "title": "Fallback Level"
+          },
+          "fallback_description": {
+            "type": "string",
+            "title": "Fallback Description"
+          },
+          "data_mode": {
+            "type": "string",
+            "title": "Data Mode"
+          },
+          "latent_mean_m": {
+            "type": "number",
+            "title": "Latent Mean M"
+          },
+          "latent_variance_p": {
+            "type": "number",
+            "title": "Latent Variance P"
+          },
+          "evidence_units": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLineageItem"
+            },
+            "type": "array",
+            "title": "Evidence Units"
+          },
+          "pipeline_stages": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Pipeline Stages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cell_id",
+          "origin_month",
+          "district_id",
+          "district_name",
+          "state_code",
+          "trade_id",
+          "trade_name",
+          "fallback_level",
+          "fallback_description",
+          "data_mode",
+          "latent_mean_m",
+          "latent_variance_p",
+          "evidence_units",
+          "pipeline_stages"
+        ],
+        "title": "LineageResponse"
+      },
+      "MetadataResponse": {
+        "properties": {
+          "app_name": {
+            "type": "string",
+            "title": "App Name"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment"
+          },
+          "pilot_states": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Pilot States"
+          },
+          "pilot_sectors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Pilot Sectors"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Languages"
+          },
+          "data_mode_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Data Mode Counts"
+          },
+          "sources": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "app_name",
+          "version",
+          "environment",
+          "pilot_states",
+          "pilot_sectors",
+          "languages",
+          "data_mode_counts",
+          "sources"
+        ],
+        "title": "MetadataResponse",
+        "description": "System metadata response."
+      },
+      "QualityReportResponse": {
+        "properties": {
+          "overall_health": {
+            "type": "string",
+            "title": "Overall Health"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/SourceQualityScorecard"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "overall_health",
+          "generated_at",
+          "sources"
+        ],
+        "title": "QualityReportResponse"
+      },
+      "RankingItem": {
+        "properties": {
+          "rank": {
+            "type": "integer",
+            "title": "Rank"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code"
+          },
+          "trade_name": {
+            "type": "string",
+            "title": "Trade Name"
+          },
+          "sector_name": {
+            "type": "string",
+            "title": "Sector Name"
+          },
+          "severity": {
+            "type": "number",
+            "title": "Severity"
+          },
+          "expected_gap": {
+            "type": "number",
+            "title": "Expected Gap"
+          },
+          "gap_rate": {
+            "type": "number",
+            "title": "Gap Rate"
+          },
+          "probability": {
+            "type": "number",
+            "title": "Probability"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "confidence": {
+            "type": "string",
+            "title": "Confidence"
+          },
+          "data_mode": {
+            "type": "string",
+            "title": "Data Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rank",
+          "district_name",
+          "state_code",
+          "trade_name",
+          "sector_name",
+          "severity",
+          "expected_gap",
+          "gap_rate",
+          "probability",
+          "status",
+          "confidence",
+          "data_mode"
+        ],
+        "title": "RankingItem"
+      },
+      "RankingsResponse": {
+        "properties": {
+          "top_shortages": {
+            "items": {
+              "$ref": "#/components/schemas/RankingItem"
+            },
+            "type": "array",
+            "title": "Top Shortages"
+          },
+          "top_saturations": {
+            "items": {
+              "$ref": "#/components/schemas/RankingItem"
+            },
+            "type": "array",
+            "title": "Top Saturations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "top_shortages",
+          "top_saturations"
+        ],
+        "title": "RankingsResponse"
+      },
+      "ReviewDecisionRequest": {
+        "properties": {
+          "decision": {
+            "type": "string",
+            "title": "Decision"
+          },
+          "assigned_trade_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assigned Trade Id"
+          },
+          "reviewer_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewer Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "decision"
+        ],
+        "title": "ReviewDecisionRequest"
+      },
+      "ReviewItem": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "raw_title": {
+            "type": "string",
+            "title": "Raw Title"
+          },
+          "raw_skills": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Skills"
+          },
+          "raw_location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raw Location"
+          },
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "suggested_trade": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggested Trade"
+          },
+          "suggested_nco": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggested Nco"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "raw_title",
+          "source_id",
+          "confidence",
+          "status",
+          "created_at"
+        ],
+        "title": "ReviewItem"
+      },
+      "ScenarioRequest": {
+        "properties": {
+          "district_id": {
+            "type": "integer",
+            "title": "District Id",
+            "description": "Target district ID"
+          },
+          "trade_id": {
+            "type": "integer",
+            "title": "Trade Id",
+            "description": "Target trade ID"
+          },
+          "seat_delta_pct": {
+            "type": "number",
+            "maximum": 0.5,
+            "minimum": -0.5,
+            "title": "Seat Delta Pct",
+            "description": "Seat allocation change % (-0.50 to +0.50)",
+            "default": 0.15
+          },
+          "completion_delta_pp": {
+            "type": "number",
+            "maximum": 0.3,
+            "minimum": -0.3,
+            "title": "Completion Delta Pp",
+            "description": "Completion rate delta in percentage points",
+            "default": 0.0
+          },
+          "new_centre_capacity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "New Centre Capacity",
+            "description": "Additional capacity from a newly sanctioned training centre",
+            "default": 0
+          },
+          "new_centre_build_lag_months": {
+            "type": "integer",
+            "maximum": 24.0,
+            "minimum": 0.0,
+            "title": "New Centre Build Lag Months",
+            "description": "Months before new centre becomes operational",
+            "default": 6
+          },
+          "demand_case": {
+            "type": "string",
+            "title": "Demand Case",
+            "description": "'base', 'high', or 'low'",
+            "default": "base"
+          },
+          "start_month": {
+            "type": "string",
+            "title": "Start Month",
+            "description": "Intervention start cycle (YYYY-MM)",
+            "default": "2025-01"
+          }
+        },
+        "type": "object",
+        "required": [
+          "district_id",
+          "trade_id"
+        ],
+        "title": "ScenarioRequest"
+      },
+      "ScenarioResponse": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "district_id": {
+            "type": "integer",
+            "title": "District Id"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name"
+          },
+          "trade_id": {
+            "type": "integer",
+            "title": "Trade Id"
+          },
+          "trade_name": {
+            "type": "string",
+            "title": "Trade Name"
+          },
+          "parameters": {
+            "type": "object",
+            "title": "Parameters"
+          },
+          "summary": {
+            "type": "object",
+            "title": "Summary"
+          },
+          "series": {
+            "type": "object",
+            "title": "Series"
+          },
+          "assumptions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Assumptions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "created_at",
+          "district_id",
+          "district_name",
+          "trade_id",
+          "trade_name",
+          "parameters",
+          "summary",
+          "series",
+          "assumptions"
+        ],
+        "title": "ScenarioResponse"
+      },
+      "SourceAttributionItem": {
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "weight": {
+            "type": "number",
+            "title": "Weight"
+          },
+          "contribution": {
+            "type": "number",
+            "title": "Contribution"
+          },
+          "percentage": {
+            "type": "number",
+            "title": "Percentage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_id",
+          "weight",
+          "contribution",
+          "percentage"
+        ],
+        "title": "SourceAttributionItem"
+      },
+      "SourceQualityScorecard": {
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "source_name": {
+            "type": "string",
+            "title": "Source Name"
+          },
+          "data_mode": {
+            "type": "string",
+            "title": "Data Mode"
+          },
+          "nominal_update_days": {
+            "type": "integer",
+            "title": "Nominal Update Days"
+          },
+          "freshness_days": {
+            "type": "number",
+            "title": "Freshness Days"
+          },
+          "records_received": {
+            "type": "integer",
+            "title": "Records Received"
+          },
+          "valid_records": {
+            "type": "integer",
+            "title": "Valid Records"
+          },
+          "quarantine_records": {
+            "type": "integer",
+            "title": "Quarantine Records"
+          },
+          "dedup_rate": {
+            "type": "number",
+            "title": "Dedup Rate"
+          },
+          "ghost_spam_rate": {
+            "type": "number",
+            "title": "Ghost Spam Rate"
+          },
+          "reliability_r_k": {
+            "type": "number",
+            "title": "Reliability R K"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_id",
+          "source_name",
+          "data_mode",
+          "nominal_update_days",
+          "freshness_days",
+          "records_received",
+          "valid_records",
+          "quarantine_records",
+          "dedup_rate",
+          "ghost_spam_rate",
+          "reliability_r_k",
+          "status"
+        ],
+        "title": "SourceQualityScorecard"
+      },
+      "SupplyForecastItem": {
+        "properties": {
+          "origin_month": {
+            "type": "string",
+            "title": "Origin Month"
+          },
+          "target_month": {
+            "type": "string",
+            "title": "Target Month"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code"
+          },
+          "state_name": {
+            "type": "string",
+            "title": "State Name"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name"
+          },
+          "lgd_code": {
+            "type": "string",
+            "title": "Lgd Code"
+          },
+          "sector_name": {
+            "type": "string",
+            "title": "Sector Name"
+          },
+          "trade_name": {
+            "type": "string",
+            "title": "Trade Name"
+          },
+          "trade_id": {
+            "type": "integer",
+            "title": "Trade Id"
+          },
+          "nco_code": {
+            "type": "string",
+            "title": "Nco Code"
+          },
+          "window_months": {
+            "type": "integer",
+            "title": "Window Months"
+          },
+          "s_mean": {
+            "type": "number",
+            "title": "S Mean"
+          },
+          "s_q10": {
+            "type": "number",
+            "title": "S Q10"
+          },
+          "s_q90": {
+            "type": "number",
+            "title": "S Q90"
+          },
+          "basis": {
+            "type": "string",
+            "title": "Basis"
+          },
+          "data_mode": {
+            "type": "string",
+            "title": "Data Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "origin_month",
+          "target_month",
+          "state_code",
+          "state_name",
+          "district_name",
+          "lgd_code",
+          "sector_name",
+          "trade_name",
+          "trade_id",
+          "nco_code",
+          "window_months",
+          "s_mean",
+          "s_q10",
+          "s_q90",
+          "basis",
+          "data_mode"
+        ],
+        "title": "SupplyForecastItem"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WebhookResponse": {
+        "properties": {
+          "webhook_id": {
+            "type": "string",
+            "title": "Webhook Id"
+          },
+          "target_url": {
+            "type": "string",
+            "title": "Target Url"
+          },
+          "events": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Events"
+          },
+          "state_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State Code"
+          },
+          "district_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "District Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "webhook_id",
+          "target_url",
+          "events",
+          "status",
+          "created_at"
+        ],
+        "title": "WebhookResponse"
+      },
+      "WebhookSubscribeRequest": {
+        "properties": {
+          "target_url": {
+            "type": "string",
+            "title": "Target Url"
+          },
+          "events": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Events",
+            "default": [
+              "alert.created",
+              "alert.escalated",
+              "alert.de_escalated"
+            ]
+          },
+          "secret_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Secret Token"
+          },
+          "state_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State Code"
+          },
+          "district_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "District Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target_url"
+        ],
+        "title": "WebhookSubscribeRequest"
+      },
+      "WebhookTestDeliveryResponse": {
+        "properties": {
+          "webhook_id": {
+            "type": "string",
+            "title": "Webhook Id"
+          },
+          "delivered": {
+            "type": "boolean",
+            "title": "Delivered"
+          },
+          "event_type": {
+            "type": "string",
+            "title": "Event Type"
+          },
+          "payload": {
+            "type": "object",
+            "title": "Payload"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "webhook_id",
+          "delivered",
+          "event_type",
+          "payload",
+          "message"
+        ],
+        "title": "WebhookTestDeliveryResponse"
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "horizons": [
+    3,
+    6,
+    12
+  ],
+  "metrics": {
+    "3": {
+      "ensemble": {
+        "mae": 40.26,
+        "rmse": 82.26,
+        "mape": 9.5,
+        "pinball_loss": 57.06,
+        "coverage_80": 87.3,
+        "coverage_95": 96.7,
+        "interval_width_80": 151.3
+      },
+      "lightgbm": {
+        "mae": 25.68,
+        "rmse": 69.22,
+        "mape": 6.0,
+        "pinball_loss": 38.44,
+        "coverage_80": 83.8,
+        "coverage_95": 100.0,
+        "interval_width_80": 87.3
+      },
+      "state_space": {
+        "mae": 82.41,
+        "rmse": 146.84,
+        "mape": 21.3,
+        "pinball_loss": 124.71,
+        "coverage_80": 98.7,
+        "coverage_95": 100.0,
+        "interval_width_80": 421.6
+      },
+      "ets": {
+        "mae": 45.29,
+        "rmse": 124.69,
+        "mape": 9.4,
+        "pinball_loss": 66.54,
+        "coverage_80": 87.3,
+        "coverage_95": 96.8,
+        "interval_width_80": 172.8
+      },
+      "seasonal_naive": {
+        "mae": 48.13,
+        "rmse": 157.16,
+        "mape": 8.6,
+        "pinball_loss": 72.37,
+        "coverage_80": 76.2,
+        "coverage_95": 90.7,
+        "interval_width_80": 120.0
+      }
+    },
+    "6": {
+      "ensemble": {
+        "mae": 39.61,
+        "rmse": 107.17,
+        "mape": 9.2,
+        "pinball_loss": 58.97,
+        "coverage_80": 81.7,
+        "coverage_95": 96.0,
+        "interval_width_80": 124.5
+      },
+      "lightgbm": {
+        "mae": 27.12,
+        "rmse": 69.83,
+        "mape": 6.2,
+        "pinball_loss": 39.83,
+        "coverage_80": 85.5,
+        "coverage_95": 99.8,
+        "interval_width_80": 95.6
+      },
+      "state_space": {
+        "mae": 88.56,
+        "rmse": 213.6,
+        "mape": 20.8,
+        "pinball_loss": 148.61,
+        "coverage_80": 100.0,
+        "coverage_95": 100.0,
+        "interval_width_80": 600.5
+      },
+      "ets": {
+        "mae": 43.05,
+        "rmse": 162.28,
+        "mape": 9.0,
+        "pinball_loss": 67.3,
+        "coverage_80": 91.8,
+        "coverage_95": 98.3,
+        "interval_width_80": 191.7
+      },
+      "seasonal_naive": {
+        "mae": 41.42,
+        "rmse": 116.59,
+        "mape": 7.9,
+        "pinball_loss": 61.71,
+        "coverage_80": 81.7,
+        "coverage_95": 93.2,
+        "interval_width_80": 120.0
+      }
+    },
+    "12": {
+      "ensemble": {
+        "mae": 51.01,
+        "rmse": 146.23,
+        "mape": 11.4,
+        "pinball_loss": 73.98,
+        "coverage_80": 79.3,
+        "coverage_95": 86.3,
+        "interval_width_80": 149.9
+      },
+      "lightgbm": {
+        "mae": 26.96,
+        "rmse": 62.73,
+        "mape": 6.2,
+        "pinball_loss": 39.64,
+        "coverage_80": 81.7,
+        "coverage_95": 100.0,
+        "interval_width_80": 95.0
+      },
+      "state_space": {
+        "mae": 125.98,
+        "rmse": 293.41,
+        "mape": 28.4,
+        "pinball_loss": 216.5,
+        "coverage_80": 100.0,
+        "coverage_95": 100.0,
+        "interval_width_80": 905.2
+      },
+      "ets": {
+        "mae": 45.44,
+        "rmse": 200.94,
+        "mape": 9.2,
+        "pinball_loss": 74.09,
+        "coverage_80": 95.5,
+        "coverage_95": 98.7,
+        "interval_width_80": 224.8
+      },
+      "seasonal_naive": {
+        "mae": 42.34,
+        "rmse": 117.02,
+        "mape": 8.2,
+        "pinball_loss": 63.13,
+        "coverage_80": 79.3,
+        "coverage_95": 92.2,
+        "interval_width_80": 120.0
+      }
+    }
+  }
+}
