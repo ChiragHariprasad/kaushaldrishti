@@ -41,24 +41,17 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
   const activeDemand =
     demandCase === "high" ? Math.round(baseDemand * 1.2) : demandCase === "low" ? Math.round(baseDemand * 0.8) : baseDemand;
 
-  // Baseline certified supply per cycle:
-  // C * E * CR * Cert = 220 * 0.88 * 0.78 * 0.92 = ~138 grads/cycle => normalized monthly ~162 with active pipelines
   const baseMonthlySupply = 162;
 
-  // Intervention calculations:
-  // Delta seats on existing ITIs
+  // Intervention calculations
   const newExistingSeats = baselineSeats * (1 + seatDelta / 100);
   const newCompletionRate = Math.min(0.98, baselineCompletionRate + completionDelta / 100);
 
-  // Additional monthly output once cohort L matures:
-  // Additional grads = (newExistingSeats - baselineSeats) * E * newCompletionRate * Cert
   const additionalGradsExisting =
     (newExistingSeats - baselineSeats) * enrolmentRate * newCompletionRate * certRate;
 
-  // Additional grads from new centre:
   const additionalGradsNew = newCapacity * enrolmentRate * newCompletionRate * certRate;
 
-  // Total additional supply per month once fully online
   const monthlySupplyLiftExisting = Math.round(additionalGradsExisting / 12);
   const monthlySupplyLiftNew = Math.round(additionalGradsNew / 12);
   const totalSupplyLift = monthlySupplyLiftExisting + monthlySupplyLiftNew;
@@ -68,10 +61,10 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
 
   // Gap calculations
   const baselineGap = activeDemand - baseMonthlySupply; // +36
-  const residualGapAtM12 = activeDemand - simulatedSupplyAtM12; // +18
-  const residualGapAtM18 = activeDemand - simulatedSupplyAtM18; // ~0 or small surplus
+  const residualGapAtM12 = activeDemand - simulatedSupplyAtM12;
+  const residualGapAtM18 = activeDemand - simulatedSupplyAtM18;
 
-  // Cycle when gap closes:
+  // Cycle when gap closes
   const gapClosesCycle =
     residualGapAtM18 <= 15
       ? "Cycle 2 (Month 18)"
@@ -79,7 +72,6 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
       ? "Cycle 1 (Month 12)"
       : "Cycle 3 (Month 24+)";
 
-  // Chart data generation over 24 months
   const months = Array.from({ length: 24 }, (_, i) => i + 1);
 
   // Chart Dimensions
@@ -120,35 +112,38 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-[#021861] border border-[#133896] rounded-xl p-5 shadow-lg flex flex-wrap items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 text-amber-400 border border-amber-500/30">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#010e3b] text-amber-300 border border-amber-500/40">
               M8: Stock-Flow Dynamic Simulator
             </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-400 border border-slate-700">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#255DCE]/20 text-blue-200 border border-[#255DCE]/40">
               data_mode: synthetic
             </span>
+            <span className="text-[10px] bg-[#DE1110] text-white px-1.5 py-0.2 rounded font-bold">
+              Team PROMETHEUSS
+            </span>
           </div>
-          <h2 className="text-2xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl font-black text-white tracking-tight">
             {t.scenarioTitle}: EV Service Technician
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-300 mt-0.5">
             Test policy seat allocations, completion rate improvements, and capital additions against strict cohort training delays ($L = 12$ months).
           </p>
         </div>
 
         {/* Demand Scenario Selector */}
-        <div className="flex items-center gap-2 bg-slate-950 p-1.5 rounded-lg border border-slate-800 text-xs">
-          <span className="text-slate-400 font-medium px-1.5">Demand Case:</span>
+        <div className="flex items-center gap-2 bg-[#010e3b] p-1.5 rounded-lg border border-[#133896] text-xs">
+          <span className="text-slate-300 font-bold px-1.5">Demand Case:</span>
           {(["base", "high", "low"] as const).map((cs) => (
             <button
               key={cs}
               onClick={() => setDemandCase(cs)}
-              className={`px-2.5 py-1 rounded capitalize font-medium transition ${
+              className={`px-3 py-1 rounded capitalize font-bold transition ${
                 demandCase === cs
-                  ? "bg-amber-500 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#255DCE] text-white shadow"
+                  : "text-slate-300 hover:text-white"
               }`}
             >
               {cs} ({cs === "base" ? "198" : cs === "high" ? "+20%" : "-20%"})
@@ -158,10 +153,10 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
       </div>
 
       {/* Dynamic Gap Closure Banner */}
-      <div className="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-amber-950/80 border border-emerald-500/40 rounded-xl p-5 flex flex-wrap items-center justify-between gap-4 shadow-lg">
+      <div className="bg-gradient-to-r from-[#021861] via-[#05216e] to-[#010e3b] border border-[#255DCE] rounded-xl p-5 flex flex-wrap items-center justify-between gap-4 shadow-xl">
         <div className="space-y-1">
-          <div className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="text-xs font-bold uppercase tracking-wider text-blue-200 flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#DE1110] animate-pulse" />
             {t.closingCycleCallout}
           </div>
           <div className="text-2xl sm:text-3xl font-black text-white tracking-tight">
@@ -171,16 +166,16 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
             </span>
           </div>
           <p className="text-xs text-slate-300">
-            Initial net deficit of <span className="text-rose-400 font-semibold font-mono">+{baselineGap} seats/mo</span> closes to <span className="text-emerald-400 font-semibold font-mono">{residualGapAtM18 > 0 ? `+${residualGapAtM18}` : residualGapAtM18} seats/mo</span> by Month 18.
+            Initial net deficit of <span className="text-[#DE1110] font-black font-mono">+{baselineGap} seats/mo</span> closes to <span className="text-emerald-400 font-bold font-mono">{residualGapAtM18 > 0 ? `+${residualGapAtM18}` : residualGapAtM18} seats/mo</span> by Month 18.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <div className="text-right">
-            <div className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">
+            <div className="text-[10px] text-slate-300 uppercase tracking-wider font-bold">
               Certified Grads Added
             </div>
-            <div className="text-2xl font-black text-amber-400 font-mono">
+            <div className="text-2xl font-black text-amber-300 font-mono">
               +{Math.round(additionalGradsExisting + additionalGradsNew)} / yr
             </div>
           </div>
@@ -190,8 +185,8 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
       {/* Main Interactive Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Controls Column */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-6">
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-slate-800 pb-3 flex items-center justify-between">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-5 space-y-6 shadow-lg">
+          <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-[#133896] pb-3 flex items-center justify-between">
             <span>Policy Levers</span>
             <button
               onClick={() => {
@@ -201,7 +196,7 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
                 setBuildLagMonths(6);
                 setDemandCase("base");
               }}
-              className="text-[10px] text-amber-400 hover:underline cursor-pointer lowercase font-normal"
+              className="text-[10px] text-[#255DCE] hover:underline cursor-pointer lowercase font-bold"
             >
               Reset to +15% default
             </button>
@@ -210,10 +205,10 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
           {/* Slider 1: Seat Allocation Delta */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <label htmlFor={seatDeltaId} className="text-slate-300 font-medium">
+              <label htmlFor={seatDeltaId} className="text-slate-200 font-bold">
                 {t.seatDeltaLabel} (&Delta;C)
               </label>
-              <span className="font-mono font-bold text-amber-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+              <span className="font-mono font-black text-[#255DCE] bg-[#010e3b] px-2 py-0.5 rounded border border-[#133896]">
                 {seatDelta > 0 ? `+${seatDelta}%` : `${seatDelta}%`}
               </span>
             </div>
@@ -225,9 +220,9 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
               step={5}
               value={seatDelta}
               onChange={(e) => setSeatDelta(Number(e.target.value))}
-              className="w-full accent-amber-500 cursor-pointer"
+              className="w-full accent-[#255DCE] cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-slate-500 font-mono">
+            <div className="flex justify-between text-[10px] text-slate-400 font-mono">
               <span>-50% (Decommission)</span>
               <span>Baseline</span>
               <span>+50% (Expansion)</span>
@@ -237,10 +232,10 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
           {/* Slider 2: Completion Rate Delta */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <label htmlFor={completionDeltaId} className="text-slate-300 font-medium">
+              <label htmlFor={completionDeltaId} className="text-slate-200 font-bold">
                 {t.completionDeltaLabel} (&Delta;CR)
               </label>
-              <span className="font-mono font-bold text-emerald-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+              <span className="font-mono font-black text-emerald-400 bg-[#010e3b] px-2 py-0.5 rounded border border-[#133896]">
                 {completionDelta > 0 ? `+${completionDelta}%` : `${completionDelta}%`}
               </span>
             </div>
@@ -254,7 +249,7 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
               onChange={(e) => setCompletionDelta(Number(e.target.value))}
               className="w-full accent-emerald-500 cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-slate-500 font-mono">
+            <div className="flex justify-between text-[10px] text-slate-400 font-mono">
               <span>-20%</span>
               <span>Target: {(newCompletionRate * 100).toFixed(0)}%</span>
               <span>+20%</span>
@@ -264,10 +259,10 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
           {/* Slider 3: New Centre Capacity */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <label htmlFor={newCapacityId} className="text-slate-300 font-medium">
+              <label htmlFor={newCapacityId} className="text-slate-200 font-bold">
                 {t.newCentreLabel} (Seats)
               </label>
-              <span className="font-mono font-bold text-blue-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+              <span className="font-mono font-black text-blue-300 bg-[#010e3b] px-2 py-0.5 rounded border border-[#133896]">
                 +{newCapacity} seats
               </span>
             </div>
@@ -279,9 +274,9 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
               step={50}
               value={newCapacity}
               onChange={(e) => setNewCapacity(Number(e.target.value))}
-              className="w-full accent-blue-500 cursor-pointer"
+              className="w-full accent-[#255DCE] cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-slate-500 font-mono">
+            <div className="flex justify-between text-[10px] text-slate-400 font-mono">
               <span>0 (Existing only)</span>
               <span>+250</span>
               <span>+500 seats</span>
@@ -291,10 +286,10 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
           {/* Slider 4: Facility Commissioning Lag */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <label htmlFor={buildLagId} className="text-slate-300 font-medium">
+              <label htmlFor={buildLagId} className="text-slate-200 font-bold">
                 Facility Commissioning Lag
               </label>
-              <span className="font-mono font-bold text-purple-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+              <span className="font-mono font-black text-purple-300 bg-[#010e3b] px-2 py-0.5 rounded border border-[#133896]">
                 {buildLagMonths} months
               </span>
             </div>
@@ -308,7 +303,7 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
               onChange={(e) => setBuildLagMonths(Number(e.target.value))}
               className="w-full accent-purple-500 cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-slate-500 font-mono">
+            <div className="flex justify-between text-[10px] text-slate-400 font-mono">
               <span>3m (Fast-track)</span>
               <span>6m (Standard)</span>
               <span>18m (Greenfield)</span>
@@ -316,8 +311,8 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
           </div>
 
           {/* Explicit Model Assumptions Box */}
-          <div className="bg-slate-950 p-3 rounded-lg border border-slate-800 text-[11px] text-slate-400 space-y-1.5">
-            <div className="font-semibold text-amber-400 uppercase tracking-wider text-[10px]">
+          <div className="bg-[#010e3b] p-3 rounded-lg border border-[#133896] text-[11px] text-slate-300 space-y-1.5">
+            <div className="font-bold text-blue-200 uppercase tracking-wider text-[10px]">
               Stock-Flow Invariant Constraints
             </div>
             <p>
@@ -333,20 +328,20 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
         </div>
 
         {/* Projection Chart & Metrics Column */}
-        <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-5">
+        <div className="lg:col-span-2 bg-[#021861] border border-[#133896] rounded-xl p-5 space-y-5 shadow-lg">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
               24-Month Dynamic Supply Response vs Demand
             </h3>
-            <span className="text-[11px] text-slate-400 font-mono">
+            <span className="text-[11px] text-slate-300 font-mono">
               S(t) = &Sigma; C_c&apos; E_c (CR_c + &Delta;CR) Cert_c &bull; &Iopf;[t_c + L = t]
             </span>
           </div>
 
           {/* Chart Legend */}
-          <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+          <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 bg-[#010e3b] p-2.5 rounded-lg border border-[#133896]">
             <div className="flex items-center gap-1.5">
-              <span className="w-3 h-0.5 bg-blue-400" />
+              <span className="w-3 h-0.5 bg-[#255DCE]" />
               <span>Demand Target ({activeDemand}/mo)</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -371,7 +366,7 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
                       y1={getY(tick)}
                       x2={chartW - padR}
                       y2={getY(tick)}
-                      stroke="#334155"
+                      stroke="#133896"
                       strokeDasharray="2,2"
                     />
                     <text
@@ -379,7 +374,7 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
                       y={getY(tick) + 4}
                       textAnchor="end"
                       fontSize="9"
-                      fill="#64748b"
+                      fill="#94a3b8"
                       fontFamily="monospace"
                     >
                       {tick}
@@ -393,15 +388,15 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
                   y1={padT}
                   x2={getX(12)}
                   y2={chartH - padB}
-                  stroke="#f59e0b"
-                  strokeWidth="1"
+                  stroke="#DE1110"
+                  strokeWidth="1.5"
                   strokeDasharray="3,3"
                 />
                 <text
                   x={getX(12) + 4}
                   y={padT + 12}
                   fontSize="9"
-                  fill="#f59e0b"
+                  fill="#DE1110"
                   fontWeight="bold"
                 >
                   Cohort L (M12)
@@ -413,22 +408,22 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
                   y1={padT}
                   x2={getX(buildLagMonths + 12)}
                   y2={chartH - padB}
-                  stroke="#38bdf8"
-                  strokeWidth="1"
+                  stroke="#255DCE"
+                  strokeWidth="1.5"
                   strokeDasharray="3,3"
                 />
                 <text
                   x={getX(buildLagMonths + 12) + 4}
                   y={padT + 26}
                   fontSize="9"
-                  fill="#38bdf8"
+                  fill="#255DCE"
                   fontWeight="bold"
                 >
                   New Centre (M{buildLagMonths + 12})
                 </text>
 
                 {/* Demand Line */}
-                <path d={demandPath} fill="none" stroke="#38bdf8" strokeWidth="2" />
+                <path d={demandPath} fill="none" stroke="#255DCE" strokeWidth="2.5" />
 
                 {/* Baseline Supply Dashed */}
                 <path
@@ -468,7 +463,7 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
             <div className="overflow-x-auto text-xs">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-slate-950 text-slate-300">
+                  <tr className="border-b border-[#133896] bg-[#010e3b] text-slate-300">
                     <th className="py-2 px-3">Milestone</th>
                     <th className="py-2 px-3">Month</th>
                     <th className="py-2 px-3">Demand Target</th>
@@ -477,25 +472,25 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
                     <th className="py-2 px-3">Residual Deficit</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 font-mono text-slate-300">
+                <tbody className="divide-y divide-[#133896] font-mono text-slate-300">
                   <tr>
                     <td className="py-2 px-3 text-slate-400">Policy Launch</td>
                     <td className="py-2 px-3">Month 1</td>
                     <td className="py-2 px-3">{activeDemand}</td>
                     <td className="py-2 px-3">{baseMonthlySupply}</td>
                     <td className="py-2 px-3">{baseMonthlySupply}</td>
-                    <td className="py-2 px-3 text-rose-400">+{activeDemand - baseMonthlySupply}</td>
+                    <td className="py-2 px-3 text-[#DE1110] font-bold">+{activeDemand - baseMonthlySupply}</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 text-amber-400">Cohort L Graduation</td>
+                    <td className="py-2 px-3 text-blue-300 font-bold">Cohort L Graduation</td>
                     <td className="py-2 px-3">Month 12</td>
                     <td className="py-2 px-3">{activeDemand}</td>
                     <td className="py-2 px-3">{baseMonthlySupply + 4}</td>
                     <td className="py-2 px-3 text-emerald-400 font-bold">{simulatedSupplyAtM12}</td>
-                    <td className="py-2 px-3 text-amber-400">+{residualGapAtM12}</td>
+                    <td className="py-2 px-3 text-amber-300">+{residualGapAtM12}</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 text-emerald-400">New Centre First Batch</td>
+                    <td className="py-2 px-3 text-emerald-400 font-bold">New Centre First Batch</td>
                     <td className="py-2 px-3">Month 18</td>
                     <td className="py-2 px-3">{activeDemand}</td>
                     <td className="py-2 px-3">{baseMonthlySupply + 6}</td>
@@ -511,41 +506,41 @@ export const ScenarioLab: React.FC<ScenarioLabProps> = ({
 
           {/* Metric Comparison Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <div className="text-[10px] text-slate-400 uppercase font-semibold">
+            <div className="bg-[#010e3b] p-3 rounded-xl border border-[#133896]">
+              <div className="text-[10px] text-slate-300 uppercase font-bold">
                 Baseline Deficit
               </div>
-              <div className="text-xl font-black text-rose-400 font-mono mt-1">
+              <div className="text-xl font-black text-[#DE1110] font-mono mt-1">
                 +{baselineGap} / mo
               </div>
-              <div className="text-[10px] text-slate-500">p_S = 84%</div>
+              <div className="text-[10px] text-slate-400">p_S = 84%</div>
             </div>
 
-            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <div className="text-[10px] text-slate-400 uppercase font-semibold">
+            <div className="bg-[#010e3b] p-3 rounded-xl border border-[#133896]">
+              <div className="text-[10px] text-slate-300 uppercase font-bold">
                 Month 12 Deficit
               </div>
-              <div className="text-xl font-black text-amber-400 font-mono mt-1">
+              <div className="text-xl font-black text-amber-300 font-mono mt-1">
                 +{residualGapAtM12} / mo
               </div>
-              <div className="text-[10px] text-slate-500">50% gap closed</div>
+              <div className="text-[10px] text-slate-400">50% gap closed</div>
             </div>
 
-            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <div className="text-[10px] text-slate-400 uppercase font-semibold">
+            <div className="bg-[#010e3b] p-3 rounded-xl border border-[#133896]">
+              <div className="text-[10px] text-slate-300 uppercase font-bold">
                 Month 18 Deficit
               </div>
               <div className="text-xl font-black text-emerald-400 font-mono mt-1">
                 {residualGapAtM18 > 0 ? `+${residualGapAtM18}` : residualGapAtM18} / mo
               </div>
-              <div className="text-[10px] text-slate-500">Within &tau; tolerance</div>
+              <div className="text-[10px] text-slate-400">Within &tau; tolerance</div>
             </div>
 
-            <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <div className="text-[10px] text-slate-400 uppercase font-semibold">
+            <div className="bg-[#010e3b] p-3 rounded-xl border border-[#133896]">
+              <div className="text-[10px] text-slate-300 uppercase font-bold">
                 Simulated p_S
               </div>
-              <div className="text-xl font-black text-blue-400 font-mono mt-1">
+              <div className="text-xl font-black text-blue-300 font-mono mt-1">
                 28%
               </div>
               <div className="text-[10px] text-emerald-400">Balanced status</div>

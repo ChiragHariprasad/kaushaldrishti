@@ -57,17 +57,20 @@ export const DistrictBriefModal: React.FC<DistrictBriefModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#010e3b]/85 backdrop-blur-md">
       <div className="bg-white text-slate-900 rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto shadow-2xl p-6 sm:p-8 space-y-6 print:p-0 print:shadow-none print:max-h-none print:rounded-none">
         {/* Print & Close Toolbar (hidden during print) */}
         <div className="flex items-center justify-between border-b border-slate-200 pb-3 print:hidden">
-          <div className="text-xs text-slate-500 font-medium">
-            1-Page District Executive Brief • Ready for Print
+          <div className="text-xs text-slate-600 font-semibold flex items-center gap-2">
+            <span>1-Page District Executive Brief</span>
+            <span className="text-[10px] bg-[#255DCE] text-white px-2 py-0.5 rounded font-bold">
+              Team PROMETHEUSS
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-slate-950 text-xs font-bold transition flex items-center gap-1.5 shadow"
+              className="px-4 py-1.5 rounded-lg bg-[#255DCE] hover:bg-[#1e4eb2] text-white text-xs font-bold transition flex items-center gap-1.5 shadow"
             >
               <span>🖨️</span>
               <span>{t.printBrief}</span>
@@ -89,7 +92,7 @@ export const DistrictBriefModal: React.FC<DistrictBriefModalProps> = ({
           <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-950 uppercase">
             District Skill Development Executive Brief
           </h1>
-          <div className="text-xs font-bold text-amber-800">
+          <div className="text-xs font-bold text-[#021861]">
             {districtName.toUpperCase()} &bull; {stateName.toUpperCase()}
           </div>
           <div className="text-[11px] text-slate-500 flex justify-center items-center gap-4 pt-1 font-mono">
@@ -98,6 +101,8 @@ export const DistrictBriefModal: React.FC<DistrictBriefModalProps> = ({
             <span>Census Pop: {population}</span>
             <span>&bull;</span>
             <span>Refreshed: Month 48 (Current)</span>
+            <span>&bull;</span>
+            <span className="font-bold text-[#DE1110]">Team PROMETHEUSS</span>
           </div>
         </div>
 
@@ -113,7 +118,7 @@ export const DistrictBriefModal: React.FC<DistrictBriefModalProps> = ({
 
         {/* Top 5 Shortages Table */}
         <div className="space-y-2">
-          <div className="text-xs font-bold uppercase tracking-wider text-rose-800 flex items-center justify-between">
+          <div className="text-xs font-bold uppercase tracking-wider text-[#DE1110] flex items-center justify-between">
             <span>Critical Shortage Trades (Immediate Intervention Needed)</span>
             <span className="text-[10px] font-normal text-slate-500">Ranked by Severity</span>
           </div>
@@ -137,7 +142,7 @@ export const DistrictBriefModal: React.FC<DistrictBriefModalProps> = ({
                     <td className="py-2 px-2 font-sans text-slate-600">{s.sector}</td>
                     <td className="py-2 px-2 text-right">{s.demand}</td>
                     <td className="py-2 px-2 text-right text-emerald-700">{s.supply}</td>
-                    <td className="py-2 px-2 text-right font-bold text-rose-700">+{s.gap}</td>
+                    <td className="py-2 px-2 text-right font-black text-[#DE1110]">+{s.gap}</td>
                     <td className="py-2 px-2 text-right">{(s.p_S * 100).toFixed(0)}%</td>
                     <td className="py-2 px-2 text-right font-bold">{s.sev.toFixed(1)}</td>
                   </tr>
@@ -184,8 +189,8 @@ export const DistrictBriefModal: React.FC<DistrictBriefModalProps> = ({
         </div>
 
         {/* Policy Recommendations Callout */}
-        <div className="bg-amber-50 border border-amber-200 p-3.5 rounded-xl text-xs space-y-1 text-slate-800">
-          <div className="font-bold text-amber-900 uppercase tracking-wider text-[11px]">
+        <div className="bg-[#021861]/5 border border-[#255DCE]/30 p-3.5 rounded-xl text-xs space-y-1 text-slate-800">
+          <div className="font-bold text-[#021861] uppercase tracking-wider text-[11px]">
             Action Recommendations for District Skill Committee (DSC)
           </div>
           <p>
@@ -204,7 +209,7 @@ export const DistrictBriefModal: React.FC<DistrictBriefModalProps> = ({
               data_mode: synthetic (SIH 2026 Evaluation Dataset)
             </span>
           </div>
-          <div>System: KaushalDrishti LMIS v1.0.0</div>
+          <div>System: KaushalDrishti LMIS v1.0.0 • Team PROMETHEUSS</div>
         </div>
       </div>
     </div>

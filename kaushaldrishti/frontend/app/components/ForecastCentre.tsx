@@ -183,7 +183,6 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
   const minY = 0;
 
   const getX = (idx: number, isForecast: boolean) => {
-    // 12 history points (0 to 11) and 12 forecast points (12 to 23)
     const tIdx = isForecast ? 11 + idx : idx;
     return padL + (tIdx / 23) * plotW;
   };
@@ -220,22 +219,25 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Banner / Breadcrumb & Selector */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-[#021861] border border-[#133896] rounded-xl p-5 shadow-lg flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-slate-400 mb-1">
+          <div className="flex items-center gap-2 text-xs text-slate-300 mb-1">
             <span>{t.navExplorer}</span>
             <span>/</span>
-            <span className="text-amber-400 font-medium">{districtName}</span>
+            <span className="text-blue-200 font-semibold">{districtName}</span>
             <span>/</span>
             <span className="text-slate-300">{currentTrade.sector}</span>
+            <span className="text-[10px] bg-[#DE1110] text-white px-1.5 py-0.2 rounded font-bold ml-2">
+              Team PROMETHEUSS
+            </span>
           </div>
           <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-bold text-white tracking-tight">{currentTrade.title}</h2>
+            <h2 className="text-2xl font-black text-white tracking-tight">{currentTrade.title}</h2>
             <div className="flex items-center gap-1.5">
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/20 text-blue-300 border border-blue-500/30">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#255DCE]/20 text-blue-200 border border-[#255DCE]/40">
                 QP: {currentTrade.qp}
               </span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#010e3b] text-slate-200 border border-[#133896]">
                 NSQF {currentTrade.nsqf}
               </span>
               <span
@@ -254,11 +256,11 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
 
         {/* Quick Trade Switcher */}
         <div className="flex items-center gap-3">
-          <label className="text-xs text-slate-400 font-medium">Switch Trade:</label>
+          <label className="text-xs text-slate-300 font-bold">Switch Trade:</label>
           <select
             value={selectedTradeId}
             onChange={(e) => setSelectedTradeId(Number(e.target.value))}
-            className="bg-slate-800 text-white text-xs border border-slate-700 rounded-lg px-3 py-2 outline-none focus:border-amber-500"
+            className="bg-[#010e3b] text-white text-xs border border-[#133896] rounded-lg px-3 py-2 outline-none focus:border-[#255DCE]"
           >
             {trades.map((tr) => (
               <option key={tr.id} value={tr.id}>
@@ -272,159 +274,159 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
       {/* KPI Cards Row */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {/* LDI Gauge Card */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-4 flex flex-col justify-between shadow-md">
+          <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
             {t.demandIndex} (LDI)
           </div>
           <div className="my-2">
-            <div className="text-3xl font-black text-amber-400 font-mono">
+            <div className="text-3xl font-black text-amber-300 font-mono">
               {currentTrade.ldi.toFixed(1)}
             </div>
-            <div className="text-[10px] text-slate-400 font-mono">
+            <div className="text-[10px] text-slate-300 font-mono">
               CI: [{currentTrade.ldiCi[0]}, {currentTrade.ldiCi[1]}]
             </div>
           </div>
-          <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+          <div className="w-full bg-[#010e3b] h-2 rounded-full overflow-hidden">
             <div
-              className="bg-gradient-to-r from-blue-500 via-amber-400 to-rose-500 h-full rounded-full"
+              className="bg-gradient-to-r from-[#255DCE] via-amber-400 to-[#DE1110] h-full rounded-full"
               style={{ width: `${currentTrade.ldi}%` }}
             />
           </div>
         </div>
 
         {/* Forecast Demand */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-4 flex flex-col justify-between shadow-md">
+          <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
             {t.forecastDemand} (E[D])
           </div>
           <div className="my-2">
-            <div className="text-3xl font-black text-blue-400 font-mono">
+            <div className="text-3xl font-black text-blue-300 font-mono">
               {currentTrade.demandForecast}
             </div>
-            <div className="text-[10px] text-slate-400 font-mono">
+            <div className="text-[10px] text-slate-300 font-mono">
               80% CI: [{currentTrade.demandCi80[0]}, {currentTrade.demandCi80[1]}]
             </div>
           </div>
-          <span className="text-[10px] text-slate-500">Conformal calibrated</span>
+          <span className="text-[10px] text-slate-400">Conformal calibrated</span>
         </div>
 
         {/* Projected Supply */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-4 flex flex-col justify-between shadow-md">
+          <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
             {t.projectedSupply} (S_W)
           </div>
           <div className="my-2">
             <div className="text-3xl font-black text-emerald-400 font-mono">
               {currentTrade.certifiedSupply}
             </div>
-            <div className="text-[10px] text-slate-400 font-mono">
+            <div className="text-[10px] text-slate-300 font-mono">
               80% CI: [{currentTrade.supplyCi80[0]}, {currentTrade.supplyCi80[1]}]
             </div>
           </div>
-          <span className="text-[10px] text-slate-500">Cohort pipeline (C*E*CR*Cert)</span>
+          <span className="text-[10px] text-slate-400">Cohort pipeline (C*E*CR*Cert)</span>
         </div>
 
         {/* Net Gap */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-4 flex flex-col justify-between shadow-md">
+          <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
             {t.netGap} (G = D - S)
           </div>
           <div className="my-2">
             <div
               className={`text-3xl font-black font-mono ${
-                currentTrade.netGap > 0 ? "text-rose-400" : "text-purple-400"
+                currentTrade.netGap > 0 ? "text-[#DE1110]" : "text-purple-300"
               }`}
             >
               {currentTrade.netGap > 0 ? `+${currentTrade.netGap}` : currentTrade.netGap}
             </div>
-            <div className="text-[10px] text-slate-400 font-mono">
+            <div className="text-[10px] text-slate-300 font-mono">
               Tolerance &tau;: &plusmn;{currentTrade.tau}
             </div>
           </div>
-          <span className="text-[10px] text-slate-500">Windowed deficit</span>
+          <span className="text-[10px] text-slate-400">Windowed deficit</span>
         </div>
 
         {/* Shortage Probability */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-4 flex flex-col justify-between shadow-md">
+          <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
             {t.shortageProb} (p_S)
           </div>
           <div className="my-2">
-            <div className="text-3xl font-black text-rose-400 font-mono">
+            <div className="text-3xl font-black text-[#DE1110] font-mono">
               {(currentTrade.pShortage * 100).toFixed(0)}%
             </div>
-            <div className="text-[10px] text-slate-400 font-mono">
+            <div className="text-[10px] text-slate-300 font-mono">
               p_O: {(currentTrade.pSaturation * 100).toFixed(0)}%
             </div>
           </div>
-          <span className="text-[10px] text-slate-500">Threshold: &ge;80%</span>
+          <span className="text-[10px] text-slate-400">Threshold: &ge;80%</span>
         </div>
 
         {/* Severity & Status */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-4 flex flex-col justify-between shadow-md">
+          <div className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
             {t.severityScore}
           </div>
           <div className="my-2">
-            <div className="text-3xl font-black text-amber-400 font-mono">
+            <div className="text-3xl font-black text-amber-300 font-mono">
               {currentTrade.severity.toFixed(1)}
             </div>
-            <div className="text-[10px] font-semibold text-rose-400">
+            <div className="text-[10px] font-bold text-[#DE1110]">
               {currentTrade.status}
             </div>
           </div>
-          <span className="text-[10px] text-amber-300 font-mono">
+          <span className="text-[10px] text-blue-200 font-mono">
             {currentTrade.overlay !== "None" ? `Overlay: ${currentTrade.overlay}` : "Stable"}
           </span>
         </div>
       </div>
 
       {/* Main Forecast Chart Section */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+      <div className="bg-[#021861] border border-[#133896] rounded-xl p-6 shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
           <div>
             <h3 className="text-lg font-bold text-white flex items-center gap-2">
               Demand &amp; Supply Trajectory (48-Month Panel Fusion)
-              <span className="text-xs font-mono font-normal bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded">
+              <span className="text-xs font-mono font-normal bg-[#010e3b] text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded">
                 data_mode: {currentTrade.dataMode}
               </span>
             </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-300 mt-0.5">
               Closed-form Kalman fusion with conformal prediction intervals (80% &amp; 95%) aligned to training cohort duration (L = {currentTrade.durationMonths}m).
             </p>
           </div>
 
           {/* Horizon Controls & Action Buttons */}
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex items-center bg-slate-800 rounded-lg p-1 border border-slate-700 text-xs">
+            <div className="flex items-center bg-[#010e3b] rounded-lg p-1 border border-[#133896] text-xs">
               <button
                 onClick={() => setHorizon("3m")}
-                className={`px-2.5 py-1 rounded font-medium transition ${
-                  horizon === "3m" ? "bg-amber-500 text-slate-950 font-bold" : "text-slate-400 hover:text-white"
+                className={`px-3 py-1 rounded font-bold transition ${
+                  horizon === "3m" ? "bg-[#255DCE] text-white" : "text-slate-300 hover:text-white"
                 }`}
               >
                 3m
               </button>
               <button
                 onClick={() => setHorizon("6m")}
-                className={`px-2.5 py-1 rounded font-medium transition ${
-                  horizon === "6m" ? "bg-amber-500 text-slate-950 font-bold" : "text-slate-400 hover:text-white"
+                className={`px-3 py-1 rounded font-bold transition ${
+                  horizon === "6m" ? "bg-[#255DCE] text-white" : "text-slate-300 hover:text-white"
                 }`}
               >
                 6m
               </button>
               <button
                 onClick={() => setHorizon("12m")}
-                className={`px-2.5 py-1 rounded font-medium transition ${
-                  horizon === "12m" ? "bg-amber-500 text-slate-950 font-bold" : "text-slate-400 hover:text-white"
+                className={`px-3 py-1 rounded font-bold transition ${
+                  horizon === "12m" ? "bg-[#255DCE] text-white" : "text-slate-300 hover:text-white"
                 }`}
               >
                 12m
               </button>
               <button
                 onClick={() => setHorizon("cohort")}
-                className={`px-2.5 py-1 rounded font-medium transition ${
-                  horizon === "cohort" ? "bg-amber-500 text-slate-950 font-bold" : "text-slate-400 hover:text-white"
+                className={`px-3 py-1 rounded font-bold transition ${
+                  horizon === "cohort" ? "bg-[#255DCE] text-white" : "text-slate-300 hover:text-white"
                 }`}
               >
                 Cohort L ({currentTrade.durationMonths}m)
@@ -433,7 +435,7 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
 
             <button
               onClick={() => onOpenWhy(currentTrade.id)}
-              className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow"
+              className="px-3.5 py-1.5 rounded-lg bg-[#010e3b] hover:bg-[#05216e] text-blue-200 border border-[#255DCE] text-xs font-bold flex items-center gap-1.5 transition shadow"
             >
               <span>🔍</span>
               <span>{t.whyButton}</span>
@@ -441,7 +443,7 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
 
             <button
               onClick={() => onOpenScenario(currentTrade.id)}
-              className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-slate-950 text-xs font-bold flex items-center gap-1.5 transition shadow"
+              className="px-3.5 py-1.5 rounded-lg bg-[#255DCE] hover:bg-[#1e4eb2] text-white text-xs font-black flex items-center gap-1.5 transition shadow-md border border-blue-400/40"
             >
               <span>⚡</span>
               <span>{t.simulateButton}</span>
@@ -450,17 +452,17 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 mb-4 bg-slate-950/60 p-2.5 rounded-lg border border-slate-800">
+        <div className="flex flex-wrap items-center gap-4 text-xs text-slate-200 mb-4 bg-[#010e3b] p-2.5 rounded-lg border border-[#133896]">
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-0.5 bg-blue-400" />
+            <span className="w-3 h-0.5 bg-blue-300" />
             <span>Observed Demand</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-0.5 border-t border-dashed border-indigo-400" />
+            <span className="w-3 h-0.5 border-t border-dashed border-[#255DCE]" />
             <span>Forecast Demand (m_t+h)</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-2 bg-indigo-500/30 rounded-xs" />
+            <span className="w-3 h-2 bg-[#255DCE]/40 rounded-xs" />
             <span>80% Conformal Interval</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -468,8 +470,8 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
             <span>Certified Supply (S_W)</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 bg-rose-500/30 border border-rose-500 rounded-xs" />
-            <span>Acute Deficit Zone (G &gt; &tau;)</span>
+            <span className="w-2.5 h-2.5 bg-[#DE1110]/30 border border-[#DE1110] rounded-xs" />
+            <span className="text-[#DE1110] font-semibold">Acute Deficit Zone (G &gt; &tau;)</span>
           </div>
         </div>
 
@@ -490,8 +492,7 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
                       y1={yPos}
                       x2={chartW - padR}
                       y2={yPos}
-                      stroke="currentColor"
-                      strokeOpacity="0.1"
+                      stroke="#133896"
                       strokeDasharray="2,2"
                     />
                     <text
@@ -499,7 +500,7 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
                       y={yPos + 4}
                       textAnchor="end"
                       fontSize="10"
-                      fill="currentColor"
+                      fill="#94a3b8"
                       className="font-mono text-[9px]"
                     >
                       {tick}
@@ -514,7 +515,7 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
                 y1={padT}
                 x2={getX(11, false)}
                 y2={chartH - padB}
-                stroke="#f59e0b"
+                stroke="#DE1110"
                 strokeWidth="1.5"
                 strokeDasharray="4,4"
               />
@@ -523,7 +524,7 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
                 y={padT + 12}
                 textAnchor="end"
                 fontSize="10"
-                fill="#f59e0b"
+                fill="#DE1110"
                 fontWeight="bold"
               >
                 Today (Month 48)
@@ -533,14 +534,14 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
                 y={padT + 12}
                 textAnchor="start"
                 fontSize="10"
-                fill="#38bdf8"
+                fill="#255DCE"
                 fontWeight="bold"
               >
                 Forecast Horizon &rarr;
               </text>
 
               {/* 80% Conformal Interval Polygon */}
-              <polygon points={ciPoints} fill="#818cf8" fillOpacity="0.22" />
+              <polygon points={ciPoints} fill="#255DCE" fillOpacity="0.25" />
 
               {/* Observed Demand Solid Line */}
               <path
@@ -556,7 +557,7 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
               <path
                 d={forecastPath}
                 fill="none"
-                stroke="#818cf8"
+                stroke="#255DCE"
                 strokeWidth="2.5"
                 strokeDasharray="5,4"
                 strokeLinecap="round"
@@ -592,7 +593,7 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
                   cx={getX(i + 1, true)}
                   cy={getY(v)}
                   r="3.5"
-                  fill="#6366f1"
+                  fill="#255DCE"
                   stroke="#ffffff"
                   strokeWidth="1"
                 />
@@ -624,7 +625,7 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-slate-700 bg-slate-950 text-slate-300">
+                <tr className="border-b border-[#133896] bg-[#010e3b] text-slate-300">
                   <th className="py-2 px-3 font-semibold">Month Offset</th>
                   <th className="py-2 px-3 font-semibold">Observed Demand</th>
                   <th className="py-2 px-3 font-semibold">Forecast Demand</th>
@@ -633,17 +634,17 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
                   <th className="py-2 px-3 font-semibold">Deficit</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 font-mono text-slate-300">
+              <tbody className="divide-y divide-[#133896] font-mono text-slate-300">
                 {currentTrade.forecast.slice(0, 6).map((fc, i) => (
-                  <tr key={i} className="hover:bg-slate-800/40">
+                  <tr key={i} className="hover:bg-[#05216e]/40">
                     <td className="py-2 px-3">+{i + 1} Month</td>
-                    <td className="py-2 px-3 text-slate-500">—</td>
-                    <td className="py-2 px-3 text-blue-400 font-semibold">{fc}</td>
-                    <td className="py-2 px-3 text-slate-400">
+                    <td className="py-2 px-3 text-slate-400">—</td>
+                    <td className="py-2 px-3 text-blue-300 font-bold">{fc}</td>
+                    <td className="py-2 px-3 text-slate-300">
                       [{currentTrade.forecastCi80Low[i]}, {currentTrade.forecastCi80High[i]}]
                     </td>
-                    <td className="py-2 px-3 text-emerald-400">{currentTrade.supplyForecast[i]}</td>
-                    <td className="py-2 px-3 text-rose-400 font-semibold">
+                    <td className="py-2 px-3 text-emerald-400 font-bold">{currentTrade.supplyForecast[i]}</td>
+                    <td className="py-2 px-3 text-[#DE1110] font-bold">
                       +{fc - currentTrade.supplyForecast[i]}
                     </td>
                   </tr>
@@ -656,44 +657,44 @@ export const ForecastCentre: React.FC<ForecastCentreProps> = ({
 
       {/* Model Lineage & Pipeline Specifications */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
-          <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-4 shadow-md">
+          <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-2">
             1. Kalman Fusion Formula
           </h4>
-          <p className="text-xs text-slate-400 font-mono bg-slate-950 p-2.5 rounded border border-slate-800 mb-2">
+          <p className="text-xs text-blue-200 font-mono bg-[#010e3b] p-2.5 rounded border border-[#133896] mb-2">
             Y_t = &Sigma; r_k H_k^T R_k^(-1) y_k<br />
             M_t = &Sigma; r_k H_k^T R_k^(-1) H_k<br />
             x&#770;_t = M_t^(-1) Y_t
           </p>
-          <p className="text-[11px] text-slate-500">
+          <p className="text-[11px] text-slate-300">
             Fuses NCS portals, state portals, apprenticeships, and PLFS priors with reliability gates.
           </p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
-          <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-4 shadow-md">
+          <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-2">
             2. Conformal Calibration (80% / 95%)
           </h4>
-          <p className="text-xs text-slate-400 font-mono bg-slate-950 p-2.5 rounded border border-slate-800 mb-2">
+          <p className="text-xs text-blue-200 font-mono bg-[#010e3b] p-2.5 rounded border border-[#133896] mb-2">
             &sigma;_h = (q_90 - q_10) / (2 &times; 1.2816)<br />
             s_i = |y_i - &mu;_i| / &sigma;_i<br />
             q&#770;_&alpha; = Quantile(s, &lceil;(n+1)(1-&alpha;)&rceil;/n)
           </p>
-          <p className="text-[11px] text-slate-500">
+          <p className="text-[11px] text-slate-300">
             Empirical coverage: 81.7% at 6m, 79.3% at 12m (verified across 31,680 backtests).
           </p>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
-          <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-4 shadow-md">
+          <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-2">
             3. Stock-Flow Supply Pipeline
           </h4>
-          <p className="text-xs text-slate-400 font-mono bg-slate-950 p-2.5 rounded border border-slate-800 mb-2">
+          <p className="text-xs text-blue-200 font-mono bg-[#010e3b] p-2.5 rounded border border-[#133896] mb-2">
             S_W = C &times; E &times; CR &times; Cert<br />
             L = {currentTrade.durationMonths} Months Cohort Lag<br />
             Excludes placement data
           </p>
-          <p className="text-[11px] text-slate-500">
+          <p className="text-[11px] text-slate-300">
             Enrolment rate (82%), completion rate (78%), certification rate (91%).
           </p>
         </div>

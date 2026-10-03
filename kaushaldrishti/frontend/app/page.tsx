@@ -133,7 +133,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
+    <div className="flex flex-col min-h-screen bg-[#010e3b] text-slate-100 font-sans antialiased selection:bg-[#DE1110] selection:text-white">
       {/* Primary Navigation Bar */}
       <Navbar
         currentTab={currentTab}
@@ -148,27 +148,30 @@ export default function Home() {
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 space-y-6">
         {/* Golden Path Evaluation Walkthrough Banner */}
-        <div className="bg-slate-900/90 border border-amber-500/30 rounded-xl p-4 shadow-md backdrop-blur">
+        <div className="bg-[#021861] border border-[#255DCE]/50 rounded-xl p-4 shadow-xl backdrop-blur">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping" />
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
-                Official SIH 2026 Evaluation Golden Path
+              <span className="w-2.5 h-2.5 rounded-full bg-[#DE1110] animate-ping" />
+              <span className="text-xs font-black uppercase tracking-wider text-white flex items-center gap-2">
+                <span>Official SIH 2026 Golden Path</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#255DCE] text-white border border-blue-400/40">
+                  Team PROMETHEUSS
+                </span>
               </span>
-              <span className="text-[11px] text-slate-400">
-                (Click any step to jump directly to the target level)
+              <span className="text-[11px] text-blue-200 hidden md:inline">
+                (Click any step to jump directly to target level)
               </span>
             </div>
             <div className="flex items-center gap-2 text-[11px]">
-              <span className="text-slate-400">Backend API:</span>
+              <span className="text-slate-300">Backend API:</span>
               {backendOnline === true ? (
-                <span className="text-emerald-400 font-mono font-medium flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                <span className="text-emerald-400 font-mono font-bold flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
                   Online
                 </span>
               ) : backendOnline === false ? (
-                <span className="text-amber-400 font-mono font-medium flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-amber-500" />
+                <span className="text-amber-300 font-mono font-medium flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-amber-400" />
                   Standalone Pilot Mode
                 </span>
               ) : (
@@ -190,14 +193,17 @@ export default function Home() {
                   onClick={step.action}
                   className={`p-2 rounded-lg border text-left transition flex flex-col justify-between ${
                     isActive
-                      ? "bg-amber-500/20 border-amber-500/80 text-white font-semibold shadow"
-                      : "bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:bg-slate-800/40"
+                      ? "bg-[#255DCE] border-white/60 text-white font-bold shadow-lg shadow-[#255DCE]/40 ring-1 ring-white/30"
+                      : "bg-[#05216e]/90 border-[#133896] text-slate-200 hover:border-[#255DCE] hover:bg-[#082a88]"
                   }`}
                 >
-                  <div className="text-[10px] text-amber-400 font-mono font-bold">
-                    Step {step.num}
+                  <div className="flex items-center justify-between">
+                    <span className={`text-[10px] font-mono font-black ${isActive ? "text-white" : "text-[#DE1110]"}`}>
+                      Step {step.num}
+                    </span>
+                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#DE1110]" />}
                   </div>
-                  <div className="text-[11px] mt-0.5 leading-tight">{step.label}</div>
+                  <div className="text-[11px] mt-0.5 leading-tight font-medium">{step.label}</div>
                 </button>
               );
             })}
@@ -290,14 +296,19 @@ export default function Home() {
       />
 
       {/* Footer */}
-      <footer className="bg-slate-950 border-t border-slate-900 py-6 text-xs text-slate-500 mt-auto">
+      <footer className="bg-[#010e3b] border-t border-[#133896] py-6 text-xs text-slate-400 mt-auto">
         <div className="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="font-semibold text-slate-400">KaushalDrishti LMIS</span>
+            <span className="font-bold text-white flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#DE1110]" />
+              KaushalDrishti LMIS
+            </span>
+            <span>&bull;</span>
+            <span className="text-slate-300 font-semibold">Team PROMETHEUSS</span>
             <span>&bull;</span>
             <span>Ministry of Skill Development &amp; Entrepreneurship (MSDE)</span>
             <span>&bull;</span>
-            <span>Problem Statement SIH26246</span>
+            <span className="text-[#DE1110] font-semibold">SIH26246</span>
           </div>
 
           <div className="flex items-center gap-4 font-mono text-[11px]">
@@ -305,14 +316,14 @@ export default function Home() {
               href={`${apiUrl}/api/v1/docs`}
               target="_blank"
               rel="noreferrer"
-              className="text-amber-400 hover:underline"
+              className="text-[#255DCE] hover:text-blue-300 font-bold hover:underline"
             >
               OpenAPI Swagger
             </a>
             <span>&bull;</span>
-            <span className="text-slate-400">48-Month Panel Fusion</span>
+            <span className="text-slate-400">48-Month Panel</span>
             <span>&bull;</span>
-            <span className="text-emerald-400">100% Deterministic Serving</span>
+            <span className="text-emerald-400 font-semibold">100% Deterministic Serving</span>
           </div>
         </div>
       </footer>

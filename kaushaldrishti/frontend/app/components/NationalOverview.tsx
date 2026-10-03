@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Language, translations } from "../i18n";
 
 interface NationalOverviewProps {
@@ -15,15 +15,16 @@ export const NationalOverview: React.FC<NationalOverviewProps> = ({
   onNavigateTab,
 }) => {
   const t = translations[lang];
+  const [activeHexState, setActiveHexState] = useState<"KA" | "TN" | "UP">("KA");
 
-  // National metrics
+  // National metrics using theme palette
   const kpiCards = [
-    { label: t.kpiMonitoredDistricts, value: "144", sub: "3 Pilot States (KA, TN, UP)", color: "border-blue-500/40 bg-blue-950/20 text-blue-400" },
-    { label: t.kpiAcuteShortage, value: "1,418", sub: "p_S >= 0.80, persists >= 2 refreshes", color: "border-rose-500/40 bg-rose-950/20 text-rose-400" },
-    { label: t.kpiEmergingShortage, value: "2,740", sub: "0.60 <= p_S < 0.80, growth diff", color: "border-amber-500/40 bg-amber-950/20 text-amber-400" },
-    { label: t.kpiApproachingSaturation, value: "892", sub: "0.60 <= p_O < 0.80, supply > demand", color: "border-teal-500/40 bg-teal-950/20 text-teal-400" },
-    { label: t.kpiSaturated, value: "410", sub: "p_O >= 0.80, E[g] <= -0.20", color: "border-purple-500/40 bg-purple-950/20 text-purple-400" },
-    { label: t.kpiRapidGrowth, value: "624", sub: ">90th percentile growth & corroboration", color: "border-emerald-500/40 bg-emerald-950/20 text-emerald-400" },
+    { label: t.kpiMonitoredDistricts, value: "144", sub: "3 Pilot States (KA, TN, UP)", border: "border-[#255DCE]/60", bg: "bg-[#021861]", text: "text-white" },
+    { label: t.kpiAcuteShortage, value: "1,418", sub: "p_S >= 0.80, persists >= 2 refreshes", border: "border-[#DE1110]/80", bg: "bg-[#021861]", text: "text-[#DE1110]" },
+    { label: t.kpiEmergingShortage, value: "2,740", sub: "0.60 <= p_S < 0.80, growth diff", border: "border-amber-500/60", bg: "bg-[#021861]", text: "text-amber-300" },
+    { label: t.kpiApproachingSaturation, value: "892", sub: "0.60 <= p_O < 0.80, supply > demand", border: "border-teal-500/60", bg: "bg-[#021861]", text: "text-teal-300" },
+    { label: t.kpiSaturated, value: "410", sub: "p_O >= 0.80, E[g] <= -0.20", border: "border-purple-500/60", bg: "bg-[#021861]", text: "text-purple-300" },
+    { label: t.kpiRapidGrowth, value: "624", sub: ">90th percentile growth & corroboration", border: "border-[#255DCE]/60", bg: "bg-[#021861]", text: "text-blue-300" },
   ];
 
   // State comparison summaries
@@ -69,6 +70,60 @@ export const NationalOverview: React.FC<NationalOverviewProps> = ({
     },
   ];
 
+  // Hex tile-grid representation for districts (Section 11 offline map requirement)
+  const hexDistrictsKA = [
+    { id: 1, name: "Bengaluru Urban", code: "BLR", status: "acute", shortages: 18 },
+    { id: 2, name: "Mysuru", code: "MYS", status: "emerging", shortages: 12 },
+    { id: 3, name: "Dharwad", code: "DHD", status: "balanced", shortages: 9 },
+    { id: 4, name: "Belagavi", code: "BEL", status: "balanced", shortages: 11 },
+    { id: 5, name: "Dakshina Kannada", code: "DKN", status: "emerging", shortages: 10 },
+    { id: 6, name: "Udupi", code: "UDP", status: "balanced", shortages: 6 },
+    { id: 7, name: "Shivamogga", code: "SHV", status: "balanced", shortages: 7 },
+    { id: 8, name: "Kalaburagi", code: "KLB", status: "saturation", shortages: 8 },
+    { id: 9, name: "Ballari", code: "BAL", status: "emerging", shortages: 14 },
+    { id: 10, name: "Tumakuru", code: "TUM", status: "balanced", shortages: 7 },
+    { id: 11, name: "Kolar", code: "KLR", status: "emerging", shortages: 11 },
+    { id: 12, name: "Mandya", code: "MDY", status: "balanced", shortages: 5 },
+  ];
+
+  const hexDistrictsTN = [
+    { id: 32, name: "Chennai", code: "CHN", status: "acute", shortages: 20 },
+    { id: 33, name: "Kanchipuram", code: "KNC", status: "emerging", shortages: 13 },
+    { id: 34, name: "Coimbatore", code: "CBE", status: "acute", shortages: 16 },
+    { id: 35, name: "Salem", code: "SLM", status: "emerging", shortages: 12 },
+    { id: 36, name: "Tiruppur", code: "TPR", status: "acute", shortages: 14 },
+    { id: 37, name: "Erode", code: "ERD", status: "balanced", shortages: 9 },
+    { id: 40, name: "Madurai", code: "MDU", status: "saturation", shortages: 10 },
+    { id: 41, name: "Tiruchirappalli", code: "TRY", status: "balanced", shortages: 8 },
+  ];
+
+  const hexDistrictsUP = [
+    { id: 70, name: "Gautam Buddha Nagar", code: "GBN", status: "acute", shortages: 22 },
+    { id: 71, name: "Lucknow", code: "LKO", status: "saturation", shortages: 19 },
+    { id: 72, name: "Ghaziabad", code: "GZB", status: "acute", shortages: 18 },
+    { id: 75, name: "Kanpur Nagar", code: "KNP", status: "emerging", shortages: 15 },
+    { id: 80, name: "Varanasi", code: "VNS", status: "emerging", shortages: 13 },
+    { id: 81, name: "Prayagraj", code: "PRY", status: "balanced", shortages: 10 },
+    { id: 82, name: "Bareilly", code: "BLY", status: "saturation", shortages: 8 },
+    { id: 85, name: "Agra", code: "AGR", status: "emerging", shortages: 14 },
+  ];
+
+  const activeHexList =
+    activeHexState === "KA" ? hexDistrictsKA : activeHexState === "TN" ? hexDistrictsTN : hexDistrictsUP;
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "acute":
+        return "bg-[#DE1110] text-white border-white/40 shadow-sm shadow-[#DE1110]/50";
+      case "emerging":
+        return "bg-amber-600 text-white border-amber-400/40";
+      case "saturation":
+        return "bg-purple-700 text-white border-purple-400/40";
+      default:
+        return "bg-[#05216e] text-slate-200 border-[#133896]";
+    }
+  };
+
   // Top 5 Shortages
   const topShortages = [
     { rank: 1, state: "KA", district: "Bengaluru Urban", trade: "EV Service Technician", gap: "+384", p: 0.98, severity: 98.2, distId: 1, tradeId: 1 },
@@ -90,17 +145,20 @@ export const NationalOverview: React.FC<NationalOverviewProps> = ({
   return (
     <div className="space-y-6">
       {/* Golden Path Alert Callout */}
-      <div className="bg-gradient-to-r from-blue-900/40 via-indigo-900/30 to-purple-900/40 border border-blue-500/30 rounded-xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-[#021861] border border-[#255DCE] rounded-xl p-4 shadow-lg flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-lg">
+          <div className="w-10 h-10 rounded-lg bg-[#255DCE] text-white flex items-center justify-center font-black text-xl shadow">
             ★
           </div>
           <div>
-            <div className="text-xs uppercase tracking-wider font-semibold text-blue-400">
-              Evaluator Golden Path Demonstration
+            <div className="text-xs uppercase tracking-wider font-extrabold text-blue-200 flex items-center gap-2">
+              <span>Evaluator Golden Path Demonstration</span>
+              <span className="text-[10px] bg-[#DE1110] text-white px-1.5 py-0.2 rounded font-bold">
+                Team PROMETHEUSS
+              </span>
             </div>
-            <div className="text-sm font-medium text-slate-100">
-              National Overview → Karnataka → Bengaluru Urban → Automotive → EV Service Technician
+            <div className="text-sm font-semibold text-white">
+              National Overview &rarr; Karnataka &rarr; Bengaluru Urban &rarr; Automotive &rarr; EV Service Technician
             </div>
           </div>
         </div>
@@ -109,65 +167,142 @@ export const NationalOverview: React.FC<NationalOverviewProps> = ({
             onSelectCell("KA", 1, 1);
             onNavigateTab("forecast");
           }}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg shadow transition-all flex items-center gap-1.5"
+          className="px-5 py-2.5 bg-[#255DCE] hover:bg-[#1e4eb2] text-white text-xs font-bold rounded-lg shadow-md transition-all flex items-center gap-2 border border-blue-400/40"
         >
           <span>Launch Golden Path Trade</span>
-          <span>→</span>
+          <span>&rarr;</span>
         </button>
       </div>
 
       {/* National KPI Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {kpiCards.map((kpi, idx) => (
-          <div key={idx} className={`p-4 rounded-xl border ${kpi.color} shadow-sm`}>
-            <div className="text-2xl font-extrabold tracking-tight">{kpi.value}</div>
-            <div className="text-xs font-semibold mt-1 text-slate-200">{kpi.label}</div>
-            <div className="text-[10px] text-slate-400 mt-1 leading-snug">{kpi.sub}</div>
+          <div key={idx} className={`p-4 rounded-xl border ${kpi.border} ${kpi.bg} shadow-md`}>
+            <div className={`text-2xl font-black tracking-tight font-mono ${kpi.text}`}>{kpi.value}</div>
+            <div className="text-xs font-bold mt-1 text-slate-100">{kpi.label}</div>
+            <div className="text-[10px] text-slate-300 mt-1 leading-snug">{kpi.sub}</div>
           </div>
         ))}
       </div>
 
+      {/* Hex Tile-Grid Map Fallback (Section 11 Requirement) */}
+      <div className="bg-[#021861] border border-[#133896] rounded-xl p-5 shadow-lg space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#133896] pb-3">
+          <div>
+            <h3 className="text-base font-bold text-white flex items-center gap-2">
+              <span>🗺️</span> District Spatial Hex-Grid Map (Offline Fallback)
+            </h3>
+            <p className="text-xs text-slate-300">
+              Deterministic hex tile topology for pilot districts. Zero external tile dependencies (Section 11 invariant).
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-slate-300 font-medium">State View:</span>
+            <div className="flex items-center bg-[#010e3b] p-1 rounded-lg border border-[#133896]">
+              {(["KA", "TN", "UP"] as const).map((st) => (
+                <button
+                  key={st}
+                  onClick={() => setActiveHexState(st)}
+                  className={`px-3 py-1 rounded text-xs font-bold transition ${
+                    activeHexState === st
+                      ? "bg-[#255DCE] text-white shadow"
+                      : "text-slate-300 hover:text-white"
+                  }`}
+                >
+                  {st === "KA" ? "Karnataka (31)" : st === "TN" ? "Tamil Nadu (38)" : "Uttar Pradesh (75)"}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Legend */}
+        <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 bg-[#010e3b] p-2.5 rounded-lg border border-[#133896]">
+          <div className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-[#DE1110]" />
+            <span>Acute Shortage (p_S &ge; 80%)</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-amber-500" />
+            <span>Emerging Shortage</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-[#05216e] border border-[#133896]" />
+            <span>Balanced</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-full bg-purple-600" />
+            <span>Saturation / Surplus</span>
+          </div>
+        </div>
+
+        {/* Hex District Tiles */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2.5 pt-2">
+          {activeHexList.map((dist) => (
+            <button
+              key={dist.id}
+              onClick={() => {
+                onSelectCell(activeHexState, dist.id, 1);
+                onNavigateTab("explorer");
+              }}
+              className={`p-3 rounded-xl border transition-all text-left flex flex-col justify-between hover:scale-105 ${getStatusColor(
+                dist.status
+              )}`}
+            >
+              <div className="flex items-center justify-between w-full">
+                <span className="text-[10px] font-mono font-black">{dist.code}</span>
+                <span className="text-[10px] font-bold font-mono">
+                  {dist.shortages} shortages
+                </span>
+              </div>
+              <div className="font-bold text-xs mt-2 truncate w-full">{dist.name}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Pilot States Comparison */}
       <div>
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-3">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">
           Pilot State Intelligence Scorecards
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {stateCards.map((st) => (
             <div
               key={st.code}
-              className="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition-all shadow-sm"
+              className="bg-[#021861] border border-[#133896] rounded-xl p-5 hover:border-[#255DCE] transition-all shadow-md"
             >
               <div className="flex items-center justify-between mb-3">
                 <div>
-                  <span className="text-xs font-mono bg-slate-800 text-blue-400 px-2 py-0.5 rounded font-semibold mr-2">
+                  <span className="text-xs font-mono bg-[#255DCE] text-white px-2 py-0.5 rounded font-bold mr-2">
                     {st.code}
                   </span>
-                  <span className="font-bold text-base text-slate-100">{st.name}</span>
+                  <span className="font-bold text-base text-white">{st.name}</span>
                 </div>
-                <div className="text-xs text-slate-400 font-mono">
-                  LDI: <span className="text-slate-200 font-bold">{st.avgLdi}</span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2 text-center py-2 bg-slate-950/60 rounded-lg border border-slate-800/80 mb-3 text-xs">
-                <div>
-                  <div className="text-rose-400 font-bold">{st.shortages}</div>
-                  <div className="text-[10px] text-slate-500">Shortages</div>
-                </div>
-                <div>
-                  <div className="text-slate-300 font-bold">{st.balanced}</div>
-                  <div className="text-[10px] text-slate-500">Balanced</div>
-                </div>
-                <div>
-                  <div className="text-purple-400 font-bold">{st.surplus}</div>
-                  <div className="text-[10px] text-slate-500">Saturation</div>
+                <div className="text-xs text-slate-300 font-mono">
+                  LDI: <span className="text-white font-bold">{st.avgLdi}</span>
                 </div>
               </div>
 
-              <div className="text-xs text-slate-400 mb-4">
+              <div className="grid grid-cols-3 gap-2 text-center py-2 bg-[#010e3b] rounded-lg border border-[#133896] mb-3 text-xs">
+                <div>
+                  <div className="text-[#DE1110] font-bold font-mono text-sm">{st.shortages}</div>
+                  <div className="text-[10px] text-slate-300">Shortages</div>
+                </div>
+                <div>
+                  <div className="text-blue-300 font-bold font-mono text-sm">{st.balanced}</div>
+                  <div className="text-[10px] text-slate-300">Balanced</div>
+                </div>
+                <div>
+                  <div className="text-purple-300 font-bold font-mono text-sm">{st.surplus}</div>
+                  <div className="text-[10px] text-slate-300">Saturation</div>
+                </div>
+              </div>
+
+              <div className="text-xs text-slate-300 mb-4">
                 Highest Shortage Priority:{" "}
-                <span className="text-slate-200 font-medium">{st.topTrade}</span>
+                <span className="text-white font-semibold">{st.topTrade}</span>
               </div>
 
               <button
@@ -175,9 +310,9 @@ export const NationalOverview: React.FC<NationalOverviewProps> = ({
                   onSelectCell(st.code, st.repDistrictId, st.topTradeId);
                   onNavigateTab("explorer");
                 }}
-                className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg transition-colors border border-slate-700"
+                className="w-full py-2 bg-[#255DCE] hover:bg-[#1e4eb2] text-white text-xs font-bold rounded-lg transition-colors border border-blue-400/40 shadow-sm"
               >
-                Explore {st.districts} Districts →
+                Explore {st.districts} Districts &rarr;
               </button>
             </div>
           ))}
@@ -187,36 +322,36 @@ export const NationalOverview: React.FC<NationalOverviewProps> = ({
       {/* Top 5 Shortages and Top 5 Saturations */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top 5 Shortages */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-5 shadow-lg">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-bold text-sm text-rose-400 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-              Top Emerging & Acute Shortages
+            <h3 className="font-bold text-sm text-white flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#DE1110] animate-pulse" />
+              <span className="text-[#DE1110]">Top Critical Shortages</span>
             </h3>
-            <span className="text-[11px] text-slate-400 font-mono">Ranked by Severity</span>
+            <span className="text-[11px] text-slate-300 font-mono">Ranked by Severity</span>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-[#010e3b] text-slate-300 border-b border-[#133896]">
                 <tr>
-                  <th className="py-2 px-2">#</th>
-                  <th className="py-2 px-2">District & State</th>
-                  <th className="py-2 px-2">Priority Trade</th>
-                  <th className="py-2 px-2 text-right">Gap</th>
-                  <th className="py-2 px-2 text-right">P(Shortage)</th>
-                  <th className="py-2 px-2 text-center">Action</th>
+                  <th className="py-2.5 px-2">#</th>
+                  <th className="py-2.5 px-2">District &amp; State</th>
+                  <th className="py-2.5 px-2">Priority Trade</th>
+                  <th className="py-2.5 px-2 text-right">Gap</th>
+                  <th className="py-2.5 px-2 text-right">P(Shortage)</th>
+                  <th className="py-2.5 px-2 text-center">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-[#133896]/60">
                 {topShortages.map((item) => (
-                  <tr key={item.rank} className="hover:bg-slate-800/40">
-                    <td className="py-2.5 px-2 font-mono text-slate-500">{item.rank}</td>
-                    <td className="py-2.5 px-2 font-medium text-slate-200">
-                      {item.district} <span className="text-slate-500 font-normal">({item.state})</span>
+                  <tr key={item.rank} className="hover:bg-[#05216e]/60 transition">
+                    <td className="py-2.5 px-2 font-mono text-slate-400 font-bold">{item.rank}</td>
+                    <td className="py-2.5 px-2 font-semibold text-white">
+                      {item.district} <span className="text-slate-400 font-normal">({item.state})</span>
                     </td>
-                    <td className="py-2.5 px-2 text-slate-300">{item.trade}</td>
-                    <td className="py-2.5 px-2 text-right font-mono font-bold text-rose-400">{item.gap}</td>
+                    <td className="py-2.5 px-2 text-slate-200">{item.trade}</td>
+                    <td className="py-2.5 px-2 text-right font-mono font-bold text-[#DE1110]">{item.gap}</td>
                     <td className="py-2.5 px-2 text-right font-mono text-slate-300">{(item.p * 100).toFixed(0)}%</td>
                     <td className="py-2.5 px-2 text-center">
                       <button
@@ -224,7 +359,7 @@ export const NationalOverview: React.FC<NationalOverviewProps> = ({
                           onSelectCell(item.state, item.distId, item.tradeId);
                           onNavigateTab("forecast");
                         }}
-                        className="px-2 py-1 bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 rounded text-[11px] font-medium"
+                        className="px-2.5 py-1 bg-[#255DCE] hover:bg-[#1e4eb2] text-white rounded text-[11px] font-bold shadow-sm"
                       >
                         Inspect
                       </button>
@@ -237,36 +372,36 @@ export const NationalOverview: React.FC<NationalOverviewProps> = ({
         </div>
 
         {/* Top 5 Saturations */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm">
+        <div className="bg-[#021861] border border-[#133896] rounded-xl p-5 shadow-lg">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-bold text-sm text-purple-400 flex items-center gap-2">
+            <h3 className="font-bold text-sm text-purple-300 flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-purple-500" />
-              Top Saturation & Surplus Risks
+              <span>Top Saturation &amp; Surplus Risks</span>
             </h3>
-            <span className="text-[11px] text-slate-400 font-mono">Ranked by Severity</span>
+            <span className="text-[11px] text-slate-300 font-mono">Ranked by Severity</span>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-[#010e3b] text-slate-300 border-b border-[#133896]">
                 <tr>
-                  <th className="py-2 px-2">#</th>
-                  <th className="py-2 px-2">District & State</th>
-                  <th className="py-2 px-2">Priority Trade</th>
-                  <th className="py-2 px-2 text-right">Oversupply</th>
-                  <th className="py-2 px-2 text-right">P(Surplus)</th>
-                  <th className="py-2 px-2 text-center">Action</th>
+                  <th className="py-2.5 px-2">#</th>
+                  <th className="py-2.5 px-2">District &amp; State</th>
+                  <th className="py-2.5 px-2">Priority Trade</th>
+                  <th className="py-2.5 px-2 text-right">Oversupply</th>
+                  <th className="py-2.5 px-2 text-right">P(Surplus)</th>
+                  <th className="py-2.5 px-2 text-center">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-[#133896]/60">
                 {topSaturations.map((item) => (
-                  <tr key={item.rank} className="hover:bg-slate-800/40">
-                    <td className="py-2.5 px-2 font-mono text-slate-500">{item.rank}</td>
-                    <td className="py-2.5 px-2 font-medium text-slate-200">
-                      {item.district} <span className="text-slate-500 font-normal">({item.state})</span>
+                  <tr key={item.rank} className="hover:bg-[#05216e]/60 transition">
+                    <td className="py-2.5 px-2 font-mono text-slate-400 font-bold">{item.rank}</td>
+                    <td className="py-2.5 px-2 font-semibold text-white">
+                      {item.district} <span className="text-slate-400 font-normal">({item.state})</span>
                     </td>
-                    <td className="py-2.5 px-2 text-slate-300">{item.trade}</td>
-                    <td className="py-2.5 px-2 text-right font-mono font-bold text-purple-400">{item.gap}</td>
+                    <td className="py-2.5 px-2 text-slate-200">{item.trade}</td>
+                    <td className="py-2.5 px-2 text-right font-mono font-bold text-purple-300">{item.gap}</td>
                     <td className="py-2.5 px-2 text-right font-mono text-slate-300">{(item.p * 100).toFixed(0)}%</td>
                     <td className="py-2.5 px-2 text-center">
                       <button
@@ -274,7 +409,7 @@ export const NationalOverview: React.FC<NationalOverviewProps> = ({
                           onSelectCell(item.state, item.distId, item.tradeId);
                           onNavigateTab("forecast");
                         }}
-                        className="px-2 py-1 bg-purple-600/30 hover:bg-purple-600/50 text-purple-300 rounded text-[11px] font-medium"
+                        className="px-2.5 py-1 bg-purple-700 hover:bg-purple-600 text-white rounded text-[11px] font-bold shadow-sm"
                       >
                         Inspect
                       </button>

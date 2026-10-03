@@ -237,7 +237,7 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "Acute Shortage":
-        return <span className="px-2 py-0.5 text-xs font-bold rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">Acute Shortage</span>;
+        return <span className="px-2 py-0.5 text-xs font-bold rounded bg-[#DE1110]/20 text-[#DE1110] border border-[#DE1110]/50">Acute Shortage</span>;
       case "Emerging Shortage":
         return <span className="px-2 py-0.5 text-xs font-bold rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">Emerging Shortage</span>;
       case "Approaching Saturation":
@@ -245,7 +245,7 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
       case "Saturated":
         return <span className="px-2 py-0.5 text-xs font-bold rounded bg-purple-500/20 text-purple-300 border border-purple-500/40">Saturated</span>;
       default:
-        return <span className="px-2 py-0.5 text-xs font-bold rounded bg-slate-800 text-slate-300 border border-slate-700">Balanced</span>;
+        return <span className="px-2 py-0.5 text-xs font-bold rounded bg-[#010e3b] text-slate-300 border border-[#133896]">Balanced</span>;
     }
   };
 
@@ -267,20 +267,23 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-[#021861] border border-[#133896] rounded-xl p-5 shadow-lg flex flex-wrap items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 text-amber-400 border border-amber-500/30">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#010e3b] text-amber-300 border border-amber-500/40">
               Section 8: Hysteresis State Machine
             </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-400 border border-slate-700">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#255DCE]/20 text-blue-200 border border-[#255DCE]/40">
               data_mode: synthetic
             </span>
+            <span className="text-[10px] bg-[#DE1110] text-white px-1.5 py-0.2 rounded font-bold">
+              Team PROMETHEUSS
+            </span>
           </div>
-          <h2 className="text-2xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl font-black text-white tracking-tight">
             {t.navAlerts} &amp; Risk Register
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-300 mt-0.5">
             Real-time multi-district early warning. Requires 2 consecutive refreshes to raise or escalate; de-escalation requires (threshold - 0.10) margin.
           </p>
         </div>
@@ -288,7 +291,7 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
         {/* Export Button */}
         <button
           onClick={handleDownloadCsv}
-          className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-2 transition shadow"
+          className="px-4 py-2.5 rounded-lg bg-[#255DCE] hover:bg-[#1e4eb2] text-white text-xs font-bold flex items-center gap-2 transition shadow-md border border-blue-400/40"
         >
           <span>📥</span>
           <span>{t.exportCsv} (Full 144 Districts)</span>
@@ -296,36 +299,36 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
       </div>
 
       {/* Filter Toolbar */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="bg-[#021861] border border-[#133896] rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs shadow-md">
         <div className="flex flex-wrap items-center gap-2">
           {/* State Filter */}
-          <div className="flex items-center gap-1.5 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800">
-            <span className="text-slate-400 font-medium">State:</span>
+          <div className="flex items-center gap-1.5 bg-[#010e3b] px-2.5 py-1.5 rounded-lg border border-[#133896]">
+            <span className="text-slate-300 font-bold">State:</span>
             <select
               value={filterState}
               onChange={(e) => setFilterState(e.target.value)}
               className="bg-transparent text-white outline-none cursor-pointer"
             >
-              <option value="ALL" className="bg-slate-900">All Pilot States</option>
-              <option value="KA" className="bg-slate-900">Karnataka (31)</option>
-              <option value="TN" className="bg-slate-900">Tamil Nadu (38)</option>
-              <option value="UP" className="bg-slate-900">Uttar Pradesh (75)</option>
+              <option value="ALL" className="bg-[#021861]">All Pilot States</option>
+              <option value="KA" className="bg-[#021861]">Karnataka (31)</option>
+              <option value="TN" className="bg-[#021861]">Tamil Nadu (38)</option>
+              <option value="UP" className="bg-[#021861]">Uttar Pradesh (75)</option>
             </select>
           </div>
 
           {/* Status Filter */}
-          <div className="flex items-center gap-1.5 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800">
-            <span className="text-slate-400 font-medium">Status:</span>
+          <div className="flex items-center gap-1.5 bg-[#010e3b] px-2.5 py-1.5 rounded-lg border border-[#133896]">
+            <span className="text-slate-300 font-bold">Status:</span>
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
               className="bg-transparent text-white outline-none cursor-pointer"
             >
-              <option value="ALL" className="bg-slate-900">All Statuses</option>
-              <option value="Acute Shortage" className="bg-slate-900">Acute Shortage</option>
-              <option value="Emerging Shortage" className="bg-slate-900">Emerging Shortage</option>
-              <option value="Approaching Saturation" className="bg-slate-900">Approaching Saturation</option>
-              <option value="Saturated" className="bg-slate-900">Saturated</option>
+              <option value="ALL" className="bg-[#021861]">All Statuses</option>
+              <option value="Acute Shortage" className="bg-[#021861]">Acute Shortage</option>
+              <option value="Emerging Shortage" className="bg-[#021861]">Emerging Shortage</option>
+              <option value="Approaching Saturation" className="bg-[#021861]">Approaching Saturation</option>
+              <option value="Saturated" className="bg-[#021861]">Saturated</option>
             </select>
           </div>
         </div>
@@ -337,43 +340,43 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
             placeholder="Search district, trade, or sector..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full sm:w-64 bg-slate-950 text-white border border-slate-800 rounded-lg px-3 py-1.5 text-xs outline-none focus:border-amber-500"
+            className="w-full sm:w-64 bg-[#010e3b] text-white border border-[#133896] rounded-lg px-3 py-1.5 text-xs outline-none focus:border-[#255DCE]"
           />
         </div>
       </div>
 
       {/* Alerts Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-[#021861] border border-[#133896] rounded-xl overflow-hidden shadow-lg">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-950 text-slate-400">
-                <th className="py-3 px-4 font-semibold">Location &amp; Trade</th>
-                <th className="py-3 px-3 font-semibold">Status &amp; Overlays</th>
-                <th className="py-3 px-3 font-semibold">Demand E[D]</th>
-                <th className="py-3 px-3 font-semibold">Supply S_W</th>
-                <th className="py-3 px-3 font-semibold">Net Gap</th>
-                <th className="py-3 px-3 font-semibold">p_S / p_O</th>
-                <th className="py-3 px-3 font-semibold">Severity</th>
-                <th className="py-3 px-3 font-semibold">Persistence</th>
-                <th className="py-3 px-4 font-semibold text-right">Actions</th>
+              <tr className="border-b border-[#133896] bg-[#010e3b] text-slate-300 font-bold">
+                <th className="py-3 px-4">Location &amp; Trade</th>
+                <th className="py-3 px-3">Status &amp; Overlays</th>
+                <th className="py-3 px-3">Demand E[D]</th>
+                <th className="py-3 px-3">Supply S_W</th>
+                <th className="py-3 px-3">Net Gap</th>
+                <th className="py-3 px-3">p_S / p_O</th>
+                <th className="py-3 px-3">Severity</th>
+                <th className="py-3 px-3">Persistence</th>
+                <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 font-sans">
+            <tbody className="divide-y divide-[#133896]/60 font-sans">
               {filteredAlerts.length > 0 ? (
                 filteredAlerts.map((alert) => {
                   const isExpanded = expandedId === alert.id;
                   return (
                     <React.Fragment key={alert.id}>
-                      <tr className="hover:bg-slate-800/40 transition">
+                      <tr className="hover:bg-[#05216e]/60 transition">
                         <td className="py-3 px-4">
                           <div className="font-bold text-white text-sm">
                             {alert.tradeTitle}
                           </div>
-                          <div className="text-[11px] text-slate-400 flex items-center gap-2 mt-0.5">
-                            <span className="text-amber-400">{alert.districtName} ({alert.stateCode})</span>
+                          <div className="text-[11px] text-slate-300 flex items-center gap-2 mt-0.5">
+                            <span className="text-blue-200 font-semibold">{alert.districtName} ({alert.stateCode})</span>
                             <span>•</span>
-                            <span className="text-slate-500">{alert.sector}</span>
+                            <span className="text-slate-400">{alert.sector}</span>
                           </div>
                         </td>
 
@@ -384,38 +387,38 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
                           </div>
                         </td>
 
-                        <td className="py-3 px-3 font-mono font-semibold text-blue-400">
+                        <td className="py-3 px-3 font-mono font-bold text-blue-300">
                           {alert.demandForecast}
                         </td>
 
-                        <td className="py-3 px-3 font-mono font-semibold text-emerald-400">
+                        <td className="py-3 px-3 font-mono font-bold text-emerald-400">
                           {alert.certifiedSupply}
                         </td>
 
-                        <td className="py-3 px-3 font-mono font-bold">
-                          <span className={alert.netGap > 0 ? "text-rose-400" : "text-purple-400"}>
+                        <td className="py-3 px-3 font-mono font-black">
+                          <span className={alert.netGap > 0 ? "text-[#DE1110]" : "text-purple-300"}>
                             {alert.netGap > 0 ? `+${alert.netGap}` : alert.netGap}
                           </span>
                         </td>
 
-                        <td className="py-3 px-3 font-mono text-slate-300">
+                        <td className="py-3 px-3 font-mono text-slate-200">
                           {alert.netGap > 0 ? (
-                            <span className="text-rose-400 font-semibold">
+                            <span className="text-[#DE1110] font-bold">
                               {(alert.pShortage * 100).toFixed(0)}%
                             </span>
                           ) : (
-                            <span className="text-purple-400 font-semibold">
+                            <span className="text-purple-300 font-bold">
                               {(alert.pSaturation * 100).toFixed(0)}%
                             </span>
                           )}
                         </td>
 
-                        <td className="py-3 px-3 font-mono font-bold text-amber-400">
+                        <td className="py-3 px-3 font-mono font-black text-amber-300">
                           {alert.severity.toFixed(1)}
                         </td>
 
                         <td className="py-3 px-3 font-mono text-slate-300">
-                          <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-[10px]">
+                          <span className="px-2 py-0.5 rounded bg-[#010e3b] border border-[#133896] text-[10px]">
                             {alert.persistenceCount} cycles
                           </span>
                         </td>
@@ -424,13 +427,13 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
                           <div className="flex items-center justify-end gap-1.5">
                             <button
                               onClick={() => setExpandedId(isExpanded ? null : alert.id)}
-                              className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-medium transition"
+                              className="px-2.5 py-1 rounded bg-[#010e3b] hover:bg-[#05216e] text-slate-200 border border-[#133896] text-[11px] font-semibold transition"
                             >
                               {isExpanded ? "Hide History" : "History"}
                             </button>
                             <button
                               onClick={() => onOpenWhy(alert.tradeId)}
-                              className="px-2 py-1 rounded bg-blue-600/80 hover:bg-blue-600 text-white text-[11px] font-medium transition"
+                              className="px-2.5 py-1 rounded bg-[#010e3b] hover:bg-[#05216e] text-blue-200 border border-[#255DCE]/60 text-[11px] font-semibold transition"
                             >
                               Why
                             </button>
@@ -438,7 +441,7 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
                               onClick={() =>
                                 onSelectCell(alert.stateCode, alert.districtId, alert.tradeId)
                               }
-                              className="px-2 py-1 rounded bg-amber-500 hover:bg-amber-400 text-slate-950 text-[11px] font-bold transition"
+                              className="px-2.5 py-1 rounded bg-[#255DCE] hover:bg-[#1e4eb2] text-white text-[11px] font-black transition shadow-sm"
                             >
                               Forecast &rarr;
                             </button>
@@ -448,24 +451,24 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
 
                       {/* Expandable Alert History Sub-row */}
                       {isExpanded && (
-                        <tr className="bg-slate-950/70 border-b border-slate-800">
+                        <tr className="bg-[#010e3b] border-b border-[#133896]">
                           <td colSpan={9} className="py-3 px-6">
                             <div className="space-y-2">
-                              <div className="flex items-center justify-between text-xs text-slate-400">
-                                <span className="font-semibold uppercase tracking-wider text-amber-400">
+                              <div className="flex items-center justify-between text-xs text-slate-300">
+                                <span className="font-bold uppercase tracking-wider text-blue-200">
                                   Hysteresis State Machine History (AlertHistory Audit Log)
                                 </span>
-                                <span className="font-mono text-[10px]">Cell: {alert.id}</span>
+                                <span className="font-mono text-[10px] text-slate-400">Cell: {alert.id}</span>
                               </div>
                               <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                                 {alert.historyTransitions.map((tr, idx) => (
                                   <div
                                     key={idx}
-                                    className="bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-[11px] space-y-1"
+                                    className="bg-[#021861] p-2.5 rounded-lg border border-[#133896] text-[11px] space-y-1"
                                   >
-                                    <div className="flex items-center justify-between font-mono text-slate-400">
+                                    <div className="flex items-center justify-between font-mono text-slate-300">
                                       <span>Refresh #{tr.refresh}</span>
-                                      <span className="text-amber-400 font-semibold">{tr.flag}</span>
+                                      <span className="text-amber-300 font-bold">{tr.flag}</span>
                                     </div>
                                     <p className="text-slate-300 text-[10px]">{tr.reason}</p>
                                   </div>
@@ -480,7 +483,7 @@ export const EarlyWarningCentre: React.FC<EarlyWarningCentreProps> = ({
                 })
               ) : (
                 <tr>
-                  <td colSpan={9} className="py-8 text-center text-slate-500">
+                  <td colSpan={9} className="py-8 text-center text-slate-400">
                     No early warnings match the selected filters.
                   </td>
                 </tr>

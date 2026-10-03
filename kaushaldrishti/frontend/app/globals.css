@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --navy-dark: #021861;
+  --navy-deep: #010e3b;
+  --navy-card: #05216e;
+  --navy-border: #133896;
+  --blue-primary: #255DCE;
+  --blue-hover: #1e4eb2;
+  --blue-light: #447ef2;
+  --red-accent: #DE1110;
+  --red-hover: #b80e0d;
+  --red-soft: rgba(222, 17, 16, 0.15);
+  
+  --background: #010e3b;
+  --foreground: #f8fafc;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom Prometheus Theme Utility Classes */
+.bg-prom-navy-deep { background-color: #010e3b; }
+.bg-prom-navy { background-color: #021861; }
+.bg-prom-navy-card { background-color: #05216e; }
+.border-prom-navy { border-color: #133896; }
+
+.bg-prom-blue { background-color: #255DCE; }
+.text-prom-blue { color: #255DCE; }
+.border-prom-blue { border-color: #255DCE; }
+.hover\:bg-prom-blue-hover:hover { background-color: #1e4eb2; }
+
+.bg-prom-red { background-color: #DE1110; }
+.text-prom-red { color: #DE1110; }
+.border-prom-red { border-color: #DE1110; }
+.bg-prom-red-soft { background-color: rgba(222, 17, 16, 0.15); }
+
+/* Custom print rules for District Executive Brief */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
 }
