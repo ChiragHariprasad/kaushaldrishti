@@ -1,0 +1,4 @@
+# Data incoming directory
+# Place raw data files here (CSV, XLSX).
+# The adapter system will auto-detect and process them.
+# See docs/DATA_SOURCES.md for instructions.

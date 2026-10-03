@@ -1,0 +1,40 @@
+# Portal (private job portals) data adapter
+# Maps portal CSV columns to the canonical schema
+
+adapter:
+  name: portal
+  source_name: "Job Portal Aggregate"
+  description: "Aggregated job postings from private job portals"
+  file_patterns:
+    - "portal_*.csv"
+    - "jobportal_*.csv"
+  data_mode: "partner"
+  nominal_update_days: 7
+  independence_group: "portal"
+
+  column_mapping:
+    job_title: "title"
+    occupation_code: "nco_code"
+    district: "location"
+    state: "state"
+    date_posted: "post_date"
+    employer_name: "company"
+    vacancies: "openings"
+    salary_min: "salary_low"
+    salary_max: "salary_high"
+    experience_min: "exp_min"
+    skills: "skills"
+
+  date_format: "%Y-%m-%d"
+  encoding: "utf-8"
+
+  biases:
+    urban_skew: true
+    duplicate_inflation: "15-30%"
+    ghost_postings: true
+
+  validation:
+    required_columns:
+      - title
+      - location
+    min_rows: 1

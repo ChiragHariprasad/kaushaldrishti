@@ -1,0 +1,17 @@
+# Confidence badge rules
+# Maps model uncertainty, data share, and source count to confidence level
+
+confidence:
+  high:
+    max_sqrt_P: 0.3
+    min_data_share: 0.7
+    min_independent_sources: 3
+    max_fallback_level: 0  # district-level data
+
+  medium:
+    max_sqrt_P: 0.6
+    min_data_share: 0.4
+    min_independent_sources: 2
+    max_fallback_level: 1  # state-level fallback
+
+  # Everything else is Low

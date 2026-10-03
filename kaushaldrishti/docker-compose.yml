@@ -1,0 +1,70 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: kd-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-kaushaldrishti}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-kdlocal2026}
+      POSTGRES_DB: ${POSTGRES_DB:-kaushaldrishti}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kaushaldrishti"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: kd-api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-kaushaldrishti}:${POSTGRES_PASSWORD:-kdlocal2026}@db:5432/${POSTGRES_DB:-kaushaldrishti}
+      DATABASE_URL_SYNC: postgresql://${POSTGRES_USER:-kaushaldrishti}:${POSTGRES_PASSWORD:-kdlocal2026}@db:5432/${POSTGRES_DB:-kaushaldrishti}
+      API_KEY: ${API_KEY:-dev-key-2026}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+      - ./adapters:/app/adapters
+      - ./config:/app/config
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: kd-web
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      - api
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: kd-nginx
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-80}:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+      - web
+
+volumes:
+  pgdata:

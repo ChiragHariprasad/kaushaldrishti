@@ -1,0 +1,36 @@
+# NCS (National Career Service) vacancy data adapter
+# Maps NCS CSV columns to the canonical schema
+
+adapter:
+  name: ncs
+  source_name: "National Career Service"
+  description: "NCS vacancy postings by NCO code and district"
+  file_patterns:
+    - "ncs_*.csv"
+    - "NCS_*.csv"
+  data_mode: "live"
+  nominal_update_days: 30
+  independence_group: "government_vacancy"
+
+  column_mapping:
+    job_title: "title"
+    occupation_code: "nco_code"
+    district: "district_name"
+    state: "state_name"
+    date_posted: "posted_date"
+    employer_name: "employer"
+    vacancies: "num_openings"
+    salary_min: "min_salary"
+    salary_max: "max_salary"
+    experience_min: "min_experience_years"
+    skills: "skills_required"
+
+  date_format: "%Y-%m-%d"
+  encoding: "utf-8"
+
+  validation:
+    required_columns:
+      - title
+      - nco_code
+      - state_name
+    min_rows: 1

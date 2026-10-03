@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "description": "Frozen baseline for LDI computation. Covers the first 24 months of available data. Re-basing is a deliberate versioned act.",
+  "window_start": "2022-01",
+  "window_end": "2023-12",
+  "frozen_at": null,
+  "note": "Will be populated after first full pipeline run in M2."
+}

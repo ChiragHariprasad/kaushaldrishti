@@ -1,0 +1,38 @@
+# Early warning flag thresholds
+# All values are illustrative defaults to be tuned in backtests
+
+flags:
+  acute_shortage:
+    p_shortage_min: 0.80
+    gap_rate_min: 0.20
+    persistence_refreshes: 2
+
+  emerging_shortage:
+    p_shortage_min: 0.60
+    p_shortage_max: 0.80
+    demand_growth_positive: true
+    capacity_growth_ratio_max: 0.5  # capacity growth <= 0.5 * demand growth
+    persistence_refreshes: 2
+
+  approaching_saturation:
+    p_oversupply_min: 0.60
+    p_oversupply_max: 0.80
+    supply_exceeds_demand_growth: true
+    persistence_refreshes: 2
+
+  saturated:
+    p_oversupply_min: 0.80
+    gap_rate_max: -0.20  # negative = surplus
+    persistence_refreshes: 2
+
+  overlay_rapid_growth:
+    growth_percentile_min: 0.90  # above trade's national 90th percentile
+    min_independent_sources: 2
+
+  overlay_volatile:
+    interval_ratio_max: 1.0  # (q90-q10)/|E[.]| > 1.0
+
+  # Hysteresis: de-escalate only after probability stays below (threshold - 0.10) for 2 refreshes
+  hysteresis:
+    probability_margin: 0.10
+    de_escalate_refreshes: 2

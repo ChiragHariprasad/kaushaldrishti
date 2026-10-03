@@ -1,0 +1,31 @@
+# e-Shram portal adapter
+
+adapter:
+  name: eshram
+  source_name: "e-Shram"
+  description: "e-Shram district-by-occupation aggregate registrations"
+  file_patterns:
+    - "eshram_*.csv"
+    - "eShram_*.csv"
+  data_mode: "public_aggregate"
+  nominal_update_days: 30
+  independence_group: "government_registry"
+
+  column_mapping:
+    state: "state"
+    district: "district"
+    occupation: "occupation_category"
+    registered_count: "total_registered"
+    month: "reference_month"
+    year: "reference_year"
+
+  date_format: "%Y-%m"
+  encoding: "utf-8"
+
+  notes: "Stock data (registrations), not flow. Aggregate only; minimum cell size enforced."
+
+  validation:
+    required_columns:
+      - state
+      - district
+    min_rows: 1

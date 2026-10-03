@@ -1,0 +1,30 @@
+# PLFS (Periodic Labour Force Survey) adapter
+
+adapter:
+  name: plfs
+  source_name: "Periodic Labour Force Survey"
+  description: "PLFS state-level employment by industry/occupation"
+  file_patterns:
+    - "plfs_*.csv"
+    - "plfs_*.xlsx"
+    - "PLFS_*.xlsx"
+  data_mode: "public_aggregate"
+  nominal_update_days: 90
+  independence_group: "government_survey"
+
+  column_mapping:
+    state: "state_name"
+    industry: "nco_division"
+    occupation: "occupation_group"
+    employed: "estimated_employed"
+    quarter: "survey_quarter"
+    year: "survey_year"
+
+  date_format: "%Y-Q%q"
+  encoding: "utf-8"
+
+  validation:
+    required_columns:
+      - state_name
+      - nco_division
+    min_rows: 1

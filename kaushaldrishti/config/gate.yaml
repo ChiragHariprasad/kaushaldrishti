@@ -1,0 +1,23 @@
+# Reliability gate configuration
+# See docs/METHODOLOGY.md for details
+
+gate:
+  # Minimum effective observations in trailing window
+  coverage:
+    n_eff_min: 10
+    window_days: 90
+
+  # Maximum age as multiple of source's nominal update period
+  freshness:
+    max_age_multiplier: 2.0
+
+  # Rolling stability check
+  stability:
+    window_months: 6
+    max_mad: 2.5
+
+  # Agreement with leave-one-out consensus
+  agreement:
+    max_deviation: 3.0
+    min_agree_months: 4
+    check_window_months: 6
