@@ -34,3 +34,12 @@ This document records every non-obvious default chosen during implementation.
 | D-016 | Frozen 24-month baseline CDF in `config/baseline.json` | Freezes baseline intensity distribution over the first 24 months so LDI (0–100) measures absolute progress rather than floating relative ranks. |
 | D-017 | Separate index scale vs gap scale | Absolute log-openings scale ($m$) is used for supply/demand gap calculations; population-adjusted intensity ($\iota$) is used for cross-district LDI comparison. |
 | D-018 | Dynamic reliability factor $r_k = \text{clip}(\bar{v}_k / \text{MSE}_k, 0.1, 1.0)$ | Penalizes sources that exhibit high leave-one-out consensus disagreement or sudden noise spikes by inflating their observation variance $v$. |
+
+## M3 — Supply Intelligence
+
+| # | Decision | Rationale |
+|---|----------|-----------|
+| D-019 | Strict structural exclusion of placement data from supply | Prevents circularity and false supply suppression. Placement outcomes are only used for validation/scenario analysis, never in the definition of graduating supply. |
+| D-020 | Beta-Binomial partial pooling for E, CR, Cert | Method of moments fits state-level prior; district centre cohorts update conjugate Beta distributions; product sampled with $\ge 2,000$ draws. |
+| D-021 | Strict `capacity_based` labelling for unstarted cohorts | Uncommenced cohorts where only capacity/seats are known are never labelled "certified entrants", maintaining data honesty. |
+| D-022 | Window supply dual tracking ($W=3$ and $W=12$) | $W=12$ window aligns with annual target-setting and cohort graduation cycles; $W=3$ supports quarterly monitoring. |

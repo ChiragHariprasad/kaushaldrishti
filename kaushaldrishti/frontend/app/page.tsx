@@ -383,8 +383,8 @@ export default function Home() {
             <div className="p-2 rounded bg-emerald-950 border border-emerald-700 text-emerald-300">
               ✓ M2: Demand Intelligence
             </div>
-            <div className="p-2 rounded bg-slate-800 border border-slate-700">
-              ⏳ M3: Supply Intelligence
+            <div className="p-2 rounded bg-emerald-950 border border-emerald-700 text-emerald-300">
+              ✓ M3: Supply Intelligence
             </div>
             <div className="p-2 rounded bg-slate-800 border border-slate-700">
               ⏳ M4: Forecasting
